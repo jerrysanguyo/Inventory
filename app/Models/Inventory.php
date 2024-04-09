@@ -13,7 +13,7 @@ class Inventory extends Model
     protected $fillable = [
         'name', 'equipment_id', 'serial_number', 'quantity', 'unit_id',
         'department_id', 'issued_by', 'assigned_to', 'received_by', 
-        'deploy_by', 'deploy_date', 'remarks', 'created_by'
+        'deploy_by', 'deploy_date', 'remark', 'created_by', 'updated_by'
     ];
 
     public static function getAllInventory() 
@@ -38,16 +38,16 @@ class Inventory extends Model
 
     public function departmentName()
     {
-        return $this->belongTo(Department::class, 'department_id');
+        return $this->belongsTo(Department::class, 'department_id');
     }
 
     public function issuedName() 
     {
-        return $this->belongTo(User::class, 'issued_by');
+        return $this->belongsTo(User::class, 'issued_by');
     }
 
     public function deployName() 
     {
-        return $this->belongTo(User::class, 'deploy_by');
+        return $this->belongsTo(User::class, 'deploy_by');
     }
 }

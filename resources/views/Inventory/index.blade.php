@@ -22,8 +22,10 @@
                     <tr>
                         <th>ID</th>
                         <th>Inventory Name</th>
-                        <th>Created By</th>
-                        <th>Date Created</th>
+                        <th>Item type</th>
+                        <th>Serial Number</th>
+                        <th>Department</th>
+                        <th>Issued to</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -32,18 +34,20 @@
                     <tr>
                         <td>{{ $inventory->id }}</td>
                         <td>{{ $inventory->name }}</td>
-                        <td>{{ $inventory->creator->name }}</td>
-                        <td>{{ $inventory->created_at }}</td>
+                        <td>{{ $inventory->equipmentName->name }}</td>
+                        <td>{{ $inventory->serial_number }}</td>
+                        <td>{{ $inventory->departmentName->name }}</td>
+                        <td>{{ $inventory->assigned_to }}</td>
                         <td>
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <a class="dropdown-item" href="{{ route('admin.inventory.edit', ['inventory' => $inventory->id]) }}">
                                         <button class="btn btn-primary">
                                             Update
                                         </button>
                                     </a>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <form action="{{ route('admin.inventory.destroy', $inventory->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')

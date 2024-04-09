@@ -54,7 +54,17 @@ class InventoryController extends Controller
     
     public function edit(Inventory $inventory)
     {
-        return view('Inventory.edit', compact('inventory'));
+        $listOfDepartment = Department::getAllDepartment();
+        $listOfEquipment = Equipment::getAllEquipment();
+        $listOfUnit = Unit::getAllUnit();
+        $listOfUser = User::getAllUser();
+        return view('Inventory.edit', compact(
+            'inventory',
+            'listOfDepartment',
+            'listOfEquipment',
+            'listOfUnit',
+            'listOfUser'
+        ));
     }
     
     public function update(UpdateInventoryRequest $request, Inventory $inventory)
