@@ -39,21 +39,31 @@
                         <td>{{ $inventory->departmentName->name }}</td>
                         <td>{{ $inventory->assigned_to }}</td>
                         <td>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <a class="dropdown-item" href="{{ route('admin.inventory.edit', ['inventory' => $inventory->id]) }}">
-                                        <button class="btn btn-primary">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('admin.inventory.edit', ['inventory' => $inventory->id]) }}">
                                             Update
-                                        </button>
-                                    </a>
-                                </div>
-                                <div class="col-md-3">
-                                    <form action="{{ route('admin.inventory.destroy', $inventory->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" onclick="return confirm('Are you sure you want to delete this inventory?');" value="Delete" class="btn btn-danger">
-                                    </form>
-                                </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('admin.inventory.show', ['inventory' => $inventory->id]) }}">
+                                            View Details
+                                        </a>
+                                    </li>
+                                    <!-- <li>
+                                        <form action="{{ route('admin.inventory.destroy', $inventory->id) }}" method="POST" style="display: none;" id="delete-form">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                        <a class="dropdown-item" href="#" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this inventory?')){document.getElementById('delete-form').submit();}">
+                                            Delete
+                                        </a>
+                                    </li> -->
+                                </ul>
                             </div>
                         </td>
                     </tr>
