@@ -34,4 +34,14 @@ class Inventory extends Model
     {
         return $this->belongsTo(Equipment::class, 'equipment_id');
     }
+
+    // public function deployments()
+    // {
+    //     return $this->hasMany(Deployment::class);
+    // }
+
+    public function latestDeployment()
+    {
+        return $this->hasOne(Deployment::class)->latest();
+    }
 }

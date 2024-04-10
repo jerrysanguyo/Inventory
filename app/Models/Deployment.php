@@ -11,9 +11,14 @@ class Deployment extends Model
 
     protected $table="deployments";
     protected $fillable = [
-        'department_id', 'issued_by', 'assigned_to',
-        'received_by', 'deploy_by', 'deploy_date'
+        'inventory_id', 'department_id', 'issued_by', 'assigned_to', 'received_by',
+        'deploy_by', 'deploy_date', 'status', 'created_by', 'updated_by',
     ];
+    
+    public static function getAllDeployment()
+    {
+        return self::all();
+    }
 
     public function departmentName()
     {

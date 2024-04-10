@@ -36,8 +36,8 @@
                         <td>{{ $inventory->name }}</td>
                         <td>{{ $inventory->equipmentName->name }}</td>
                         <td>{{ $inventory->serial_number }}</td>
-                        <td>{{ $inventory->departmentName->name ?? 'N/A' }}</td>
-                        <td>{{ $inventory->assigned_to ?? 'N/A'  }}</td>
+                        <td>{{ $inventory->latestDeployment->departmentName->name ?? 'N/A' }}</td>
+                        <td>{{ $inventory->latestDeployment->assigned_to ?? 'N/A'  }}</td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">

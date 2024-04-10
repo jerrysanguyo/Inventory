@@ -8,6 +8,7 @@ use App\Models\Department;
 use App\Models\Equipment;
 use App\Models\Unit;
 use App\Models\User;
+use App\Models\Deployment;
 use App\Http\Requests\StoreInventoryRequest;
 use App\Http\Requests\UpdateInventoryRequest;
 
@@ -16,20 +17,21 @@ class InventoryController extends Controller
     public function index(InventoryDataTable $DataTable)
     {
         $listOfInventory = Inventory::getAllInventory();
+        $listOfInventory = Inventory::with('latestDeployment')->get();
+        $listOfDepartment = Department::getAllDepartment();
         return $DataTable->render('Inventory.index', compact(
             'listOfInventory',
-            'DataTable'
+            'listOfDepartment',
+            'DataTable',
         ));
     }
     
     public function create()
     {
-        $listOfDepartment = Department::getAllDepartment();
         $listOfEquipment = Equipment::getAllEquipment();
         $listOfUnit = Unit::getAllUnit();
         $listOfUser = User::getAllUser();
         return view('Inventory.create', compact(
-            'listOfDepartment',
             'listOfEquipment',
             'listOfUnit',
             'listOfUser'
@@ -44,13 +46,16 @@ class InventoryController extends Controller
 
         Inventory::create($validated);
 
-        return redirect()->route('admin.inventory.index')->with('success', 'Inventory item created successfully.');
+        return redirect()->route('admin.inventory.index')
+                        ->with('success', 'Inventory item created successfully.');
     }
     
     public function show(Inventory $inventory)
     {
+        $inventory->load('latestDeployment');
         $listOfDepartment = Department::getAllDepartment();
         $listOfEquipment = Equipment::getAllEquipment();
+        $hasDeployment = $inventory->latestDeployment()->exists();
         $listOfUnit = Unit::getAllUnit();
         $listOfUser = User::getAllUser();
         return view('Inventory.details', compact(
@@ -58,19 +63,18 @@ class InventoryController extends Controller
             'listOfDepartment',
             'listOfEquipment',
             'listOfUnit',
-            'listOfUser'
+            'listOfUser',
+            'hasDeployment'
         ));
     }
     
     public function edit(Inventory $inventory)
     {
-        $listOfDepartment = Department::getAllDepartment();
         $listOfEquipment = Equipment::getAllEquipment();
         $listOfUnit = Unit::getAllUnit();
         $listOfUser = User::getAllUser();
         return view('Inventory.edit', compact(
             'inventory',
-            'listOfDepartment',
             'listOfEquipment',
             'listOfUnit',
             'listOfUser'
