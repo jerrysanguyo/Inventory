@@ -36,8 +36,8 @@
                         <td>{{ $inventory->name }}</td>
                         <td>{{ $inventory->equipmentName->name }}</td>
                         <td>{{ $inventory->serial_number }}</td>
-                        <td>{{ $inventory->departmentName->name }}</td>
-                        <td>{{ $inventory->assigned_to }}</td>
+                        <td>{{ $inventory->departmentName->name ?? 'N/A' }}</td>
+                        <td>{{ $inventory->assigned_to ?? 'N/A'  }}</td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,15 +54,6 @@
                                             View Details
                                         </a>
                                     </li>
-                                    <!-- <li>
-                                        <form action="{{ route('admin.inventory.destroy', $inventory->id) }}" method="POST" style="display: none;" id="delete-form">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                        <a class="dropdown-item" href="#" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this inventory?')){document.getElementById('delete-form').submit();}">
-                                            Delete
-                                        </a>
-                                    </li> -->
                                 </ul>
                             </div>
                         </td>

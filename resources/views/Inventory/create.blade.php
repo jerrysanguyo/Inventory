@@ -16,11 +16,11 @@
                 @csrf
                 @method('POST')
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="dpname" class="form-label">Item name:</label>
                         <input type="text" name="name" id="dpname" class="form-control">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="eqt" class="form-label">Equipment Type</label>
                         <select name="equipment_id" id="eqt" class="form-select">
                             @foreach ($listOfEquipment as $equipment)
@@ -28,11 +28,11 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="sernum" class="form-label">Serial Number</label>
                         <input type="text" name="serial_number" id="sernum" class="form-control">
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-3">
                         <label for="qty" class="form-label">Quantity</label>
                         <input type="number" name="quantity" id="qty" class="form-control">
                     </div>
@@ -43,42 +43,6 @@
                                 <option value="{{ $unit->id }}">{{ $unit->name }}</option>
                             @endforeach
                         </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="dept" class="form-label">Department</label>
-                        <select name="department_id" id="dept" class="form-select">
-                            @foreach ($listOfDepartment as $department)
-                                <option value="{{ $department->id }}">{{ $department->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="issuby" class="form-label">Issued by</label>
-                        <select name="issued_by" id="issuby" class="form-select">
-                            @foreach ($listOfUser as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="user" class="form-label">Issued to</label>
-                        <input type="text" name="assigned_to" id="user" class="form-control">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="recby" class="form-label">Received by</label>
-                        <input type="text" name="received_by" id="recby" class="form-control">
-                    </div>
-                    <div class="col-md-3">
-                        <label for="dep" class="form-label">Deployed by</label>
-                        <select name="deploy_by" id="dep" class="form-select">
-                            @foreach ($listOfUser as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="dissu" class="form-label">Date Deployed</label>
-                        <input type="date" name="deploy_date" id="dissu" class="form-control">
                     </div>
                     <div class="col-md-12">
                         <label for="remarks" class="form-label">Remarks</label>

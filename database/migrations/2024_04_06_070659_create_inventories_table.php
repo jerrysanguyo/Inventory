@@ -18,12 +18,6 @@ return new class extends Migration
             $table->foreignId('equipment_id')->constrained('equipments');
             $table->string('serial_number');
             $table->longText('remark')->nullable();
-            $table->foreignId('department_id')->constrained('departments');
-            $table->string('assigned_to')->nullable();
-            $table->foreignId('issued_by')->constrained('users');
-            $table->foreignId('deploy_by')->constrained('users');
-            $table->date('deploy_date')->nullable();
-            $table->string('received_by')->nullable();
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->constrained('users');
             $table->timestamps();
