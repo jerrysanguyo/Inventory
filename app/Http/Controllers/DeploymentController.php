@@ -26,9 +26,8 @@ class DeploymentController extends Controller
 
         Deployment::create($validated);
 
-        return redirect()->route('admin.inventory.show')
+        return redirect()->route('admin.inventory.index')
                         ->with('success', 'Item has been assgined sucessfully');
-
     }
     
     public function show(Deployment $deployment)
