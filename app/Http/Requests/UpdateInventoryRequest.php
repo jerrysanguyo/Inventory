@@ -28,6 +28,10 @@ class UpdateInventoryRequest extends FormRequest
             'quantity' => 'required|integer|min:1',
             'unit_id' => 'required|integer|exists:units,id',
             'remark' => 'required|string|max:1000',
+            'pk_os' => 'string',
+            'pk_ms_office' => 'strign',
+            'email' => 'email',
+            'password' => 'string'
         ];
     }
 }

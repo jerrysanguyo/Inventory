@@ -45,10 +45,33 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 mb-3">
                         <label for="remarks" class="form-label">Remarks</label>
                         <input type="text" name="remark" id="remarks" class="form-control" value="{{ $inventory->remark }}">
                     </div>
+                    @if (!empty($inventory->pk_os))
+                    <div id="addInfo">
+                        <span class="fs-6 mb-3">Additional Info (Kindly leave if not applicable)</span>
+                        <div class="col-md-12">
+                            <label for="os" class="form-label">Product key for OS</label>
+                            <input type="text" name="pk_os" id="os" class="form-control" value="{{ $inventory->pk_os }}">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="ms" class="form-label">Product key for MS Office</label>
+                            <input type="text" name="pk_ms_office" id="ms" class="form-control" value="{{ $inventory->pk_ms_office }}">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="pk_email" class="form-label">Email:</label>
+                            <input type="email" name="email" id="pk_email" class="form-control" value="{{ $inventory->email }}">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="pk_pw" class="form-label">Password</label>
+                            <input type="password" name="password" id="pk_pw" class="form-control" value="{{ $inventory->password }}">
+                        </div>
+                    </div>
+                    @else
+                    
+                    @endif
                     <div class="col-md-12 d-flex justify-content-end mt-3">
                         <input type="submit" value="Submit" class="btn btn-primary">
                     </div>
@@ -57,4 +80,17 @@
         </div>
     </div>
 </div>
+<!-- <script>
+    document.getElementById('eqt').addEventListener('change', function () {
+        var value = this.value;
+        var div = document.getElementById('addInfo');
+
+        if(value === '8' || value === '1') 
+        {
+            div.style.display = 'block';
+        } else {
+            div.style.display = 'none';
+        }
+    });
+</script> -->
 @endsection

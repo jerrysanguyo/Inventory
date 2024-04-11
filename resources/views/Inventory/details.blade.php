@@ -83,6 +83,31 @@
                             <input type="text" readonly class="form-control-plaintext" id="sts" value="{{ $inventory->latestDeployment->status ?? 'In Stock' }}">
                         </div>
                     </div>
+                    <span class="fs-4">Additional Info</span>
+                    <div class="row">
+                        <label for="pkos" class="col-sm-4 col-form-label">Product key OS:</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" id="pkos" value="{{ $inventory->pk_os ?? 'N/A' }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="pkms" class="col-sm-4 col-form-label">Product key MS:</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" id="pkms" value="{{ $inventory->pk_ms_office ?? 'N/A' }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="em" class="col-sm-4 col-form-label">Email:</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" id="em" value="{{ $inventory->email ?? 'N/A' }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="pw" class="col-sm-4 col-form-label">Password:</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" id="pw" value="{{ $inventory->password ?? 'N/A' }}">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

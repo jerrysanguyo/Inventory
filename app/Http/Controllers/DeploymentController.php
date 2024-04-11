@@ -23,6 +23,7 @@ class DeploymentController extends Controller
         $validated=$request->validated();
         $validated['created_by'] = auth()->id();
         $validated['updated_by'] = auth()->id();
+        $validated['status'] = "Borrowed";
 
         Deployment::create($validated);
 

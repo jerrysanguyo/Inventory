@@ -29,7 +29,6 @@ class StoreDeploymentRequest extends FormRequest
             'received_by' => 'required|string|max:255',
             'deploy_by' => 'required|integer|exists:users,id',
             'deploy_date' => 'required|date',
-            'status' => 'Borrowed',
         ];
     }
 }

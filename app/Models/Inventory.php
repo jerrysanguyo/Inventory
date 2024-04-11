@@ -12,7 +12,8 @@ class Inventory extends Model
     protected $table="inventories";
     protected $fillable = [
         'name', 'equipment_id', 'serial_number', 'quantity',
-        'unit_id', 'remark', 'created_by', 'updated_by'
+        'unit_id', 'remark', 'created_by', 'updated_by',
+        'pk_os', 'pk_ms_office', 'email', 'password'
     ];
 
     public static function getAllInventory() 
