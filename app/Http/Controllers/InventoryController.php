@@ -74,14 +74,6 @@ class InventoryController extends Controller
             'listOfUser',
             'hasDeployment'
         ));
-        // return view('Inventory.details', compact(
-        //     'inventory',
-        //     'listOfDepartment',
-        //     'listOfEquipment',
-        //     'listOfUnit',
-        //     'listOfUser',
-        //     'hasDeployment'
-        // ));
     }
     
     public function edit(Inventory $inventory)
