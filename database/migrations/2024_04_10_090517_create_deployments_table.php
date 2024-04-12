@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('deployments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('inventory_id')->constrined('inventories');
+            $table->foreignId('inventory_id')->constrained('inventories');
             $table->foreignId('department_id')->constrained('departments');
             $table->string('assigned_to')->nullable();
             $table->foreignId('issued_by')->constrained('users');

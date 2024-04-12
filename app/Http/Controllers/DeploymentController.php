@@ -32,6 +32,18 @@ class DeploymentController extends Controller
         return redirect()->route('admin.inventory.index')
                         ->with('success', 'Item has been assgined sucessfully');
     }
+
+    public function deploymentReturn(UpdateDeploymentRequest $request, Deployment $deployment)
+    {
+        $validated = $request->validated();
+        $validated['updated_by'] = auth()->id();
+        $validated['status'] = "Returned";
+
+        $deployment->update($validated);
+
+        return redirect()->route('admin.inventory.index')
+                        ->with('success', 'Item return successfully.');
+    }
     
     public function show(Deployment $deployment)
     {

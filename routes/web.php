@@ -27,5 +27,8 @@ Route::middleware(['auth', Role::class])->group(function() {
         Route::resource('/equipment', EquipmentController::class);
         Route::resource('/inventory', InventoryController::class);
         Route::resource('/deployment', DeploymentController::class);
+
+        Route::PUT('/deployment/return/{deployment}', [DeploymentController::class, 'deploymentReturn'])
+            ->name('deployment.depReturn');;
     });
 });

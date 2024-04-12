@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\InventoryDataTable;
+use App\DataTables\IHPerItemDataTable;
 use App\Models\Inventory;
 use App\Models\Department;
 use App\Models\Equipment;
@@ -50,15 +51,22 @@ class InventoryController extends Controller
                         ->with('success', 'Inventory item created successfully.');
     }
     
-    public function show(Inventory $inventory)
+    public function show(Inventory $inventory, IHPerItemDataTable $DataTable)
     {
         $inventory->load('latestDeployment');
         $listOfDepartment = Department::getAllDepartment();
         $listOfEquipment = Equipment::getAllEquipment();
-        $hasDeployment = $inventory->latestDeployment()->exists();
+        $itemHistory = Deployment::getItemHistoryDeployment($inventory->id);    
+        $hasDeployment = $inventory->latestDeployment()
+                            ->where('status', 'borrowed')
+                            ->exists();
+    
         $listOfUnit = Unit::getAllUnit();
         $listOfUser = User::getAllUser();
-        return view('Inventory.details', compact(
+    
+        return $DataTable->render('Inventory.details', compact(
+            'itemHistory',
+            'DataTable',
             'inventory',
             'listOfDepartment',
             'listOfEquipment',
@@ -66,6 +74,14 @@ class InventoryController extends Controller
             'listOfUser',
             'hasDeployment'
         ));
+        // return view('Inventory.details', compact(
+        //     'inventory',
+        //     'listOfDepartment',
+        //     'listOfEquipment',
+        //     'listOfUnit',
+        //     'listOfUser',
+        //     'hasDeployment'
+        // ));
     }
     
     public function edit(Inventory $inventory)

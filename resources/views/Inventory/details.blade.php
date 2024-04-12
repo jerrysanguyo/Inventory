@@ -12,6 +12,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
+            <!-- item details -->
             <div class="card justify-content-center mb-3" style="min-height:533px">
                 <div class="card-body">
                     <div class="mb-3">
@@ -78,6 +79,24 @@
                         </div>
                     </div>
                     <div class="row">
+                        <label for="reb" class="col-sm-4 col-form-label">Return by:</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" id="reb" value="{{ $inventory->latestDeployment->return_by ?? 'Not returned yet' }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="red" class="col-sm-4 col-form-label">Return date:</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" id="red" value="{{ $inventory->latestDeployment->return_by ?? 'Not returned yet' }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="rebr" class="col-sm-4 col-form-label">Received by: (return)</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" id="rebr" value="{{ $inventory->latestDeployment->receivedName->name ?? 'Not returned yet' }}">
+                        </div>
+                    </div>
+                    <div class="row">
                         <label for="sts" class="col-sm-4 col-form-label">Status:</label>
                         <div class="col-sm-8">
                             <input type="text" readonly class="form-control-plaintext" id="sts" value="{{ $inventory->latestDeployment->status ?? 'In Stock' }}">
@@ -102,10 +121,22 @@
                             <input type="text" readonly class="form-control-plaintext" id="em" value="{{ $inventory->email ?? 'N/A' }}">
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mb-3">
                         <label for="pw" class="col-sm-4 col-form-label">Password:</label>
                         <div class="col-sm-8">
                             <input type="text" readonly class="form-control-plaintext" id="pw" value="{{ $inventory->password ?? 'N/A' }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @if($hasDeployment)
+                                <!-- if has deployment -->
+                                <div class="d-grid gap-2 mb-3">
+                                    <a href="{{ route('admin.deployment.edit', ['deployment' => $inventory->latestDeployment->id]) }}" class="btn btn-primary" type="button">Edit Borrower</a>
+                                </div>
+                                @else
+
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -118,6 +149,7 @@
                         <div class="card-body">
                             @if(!$hasDeployment)
                                 <!-- if no deployment -->
+                                <!-- assign form -->
                                 <span class="fs-4">Assign to</span>
                                 <form action="{{ route('admin.deployment.store') }}" method="post">
                                     @csrf
@@ -171,17 +203,67 @@
                                     <input type="submit" value="Submit" class="btn btn-primary mt-3">
                                 </form>
                             @else
-                                <!-- if has deployment -->
-                            <div class="d-grid gap-2">
-                                <a href="{{ route('admin.deployment.edit', ['deployment' => $inventory->latestDeployment->id]) }}" class="btn btn-primary" type="button">Return / edit</a>
-                            </div>
+                            <!-- return form -->
+                            <span class="fs-4">Return:</span>
+                            <form action="{{ route('admin.deployment.depReturn', ['deployment' => $inventory->latestDeployment->id]) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                                <div class="col-md-12">
+                                    <label for="retB" class="form-label">Return by:</label>
+                                    <input type="text" name="return_by" id="retB" class="form-control">
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="retD" class="form-label">Return date:</label>
+                                    <input type="date" name="return_date" id="retD" class="form-control">
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="recB" class="form-label">Received by:</label>
+                                    <select name="received_by_return" id="recB" class="form-select">
+                                        @foreach ($listOfUser as $User)
+                                        <option value="{{ $User->id }}">{{ $User->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="submit" value="Return" class="btn btn-primary">
+                                </div>
+                            </form>
                             @endif
+                        </div>
+                    </div>
+                </div>
+                <!-- item history -->
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <span class="fs-4">Item history:</span>
+                            <table class="table" id="IhPerItem-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Department</th>
+                                        <th>Borrowed date</th>
+                                        <th>Returned date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($itemHistory as $Item)
+                                        <tr>
+                                            <td>{{ $Item->assigned_to }}</td>
+                                            <td>{{ $Item->departmentName->name }}</td>
+                                            <td>{{ $Item->deploy_date }}</td>
+                                            <td>{{ $Item->return_date ?? 'N/A' }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- delete item -->
     <div class="card justify-content-center mt-3">
         <div class="card-body">
             <span class="fs-3">Delete this Item</span>
@@ -195,4 +277,16 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script>
+    $(document).ready(function() {
+        $('#IhPerItem-table').DataTable({
+            "processing": true,
+            "serverSide": false,
+            "pageLength": 10,
+            "order": [[0, "asc"]],
+        });
+    });
+    </script>
+@endpush
 @endsection

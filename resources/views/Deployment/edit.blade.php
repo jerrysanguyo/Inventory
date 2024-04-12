@@ -4,7 +4,7 @@
 <div class="container">
     <div class="d-flex justify-content-between">
         <span class="fs-3">Deployment / Deployment Edit</span>
-        <a href="{{ route('admin.deployment.index') }}" class="text-decoration-none">
+        <a href="{{ route('admin.inventory.index') }}" class="text-decoration-none">
             <button class="btn btn-primary">
                 Back
             </button>

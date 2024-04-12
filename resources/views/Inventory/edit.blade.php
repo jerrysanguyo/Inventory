@@ -49,7 +49,6 @@
                         <label for="remarks" class="form-label">Remarks</label>
                         <input type="text" name="remark" id="remarks" class="form-control" value="{{ $inventory->remark }}">
                     </div>
-                    @if (!empty($inventory->pk_os))
                     <div id="addInfo">
                         <span class="fs-6 mb-3">Additional Info (Kindly leave if not applicable)</span>
                         <div class="col-md-12">
@@ -69,9 +68,6 @@
                             <input type="password" name="password" id="pk_pw" class="form-control" value="{{ $inventory->password }}">
                         </div>
                     </div>
-                    @else
-                    
-                    @endif
                     <div class="col-md-12 d-flex justify-content-end mt-3">
                         <input type="submit" value="Submit" class="btn btn-primary">
                     </div>
@@ -80,7 +76,7 @@
         </div>
     </div>
 </div>
-<!-- <script>
+<script>
     document.getElementById('eqt').addEventListener('change', function () {
         var value = this.value;
         var div = document.getElementById('addInfo');
@@ -92,5 +88,5 @@
             div.style.display = 'none';
         }
     });
-</script> -->
+</script>
 @endsection

@@ -29,6 +29,9 @@ class StoreDeploymentRequest extends FormRequest
             'received_by' => 'required|string|max:255',
             'deploy_by' => 'required|integer|exists:users,id',
             'deploy_date' => 'required|date',
+            'return_by' => 'string|nullable',
+            'return_date' => 'date|nullable',
+            'received_by_return' => 'nullable|exists:users,id',
         ];
     }
 }
