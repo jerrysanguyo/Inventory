@@ -108,6 +108,12 @@
                             <input type="text" readonly class="form-control-plaintext" id="pw" value="{{ $inventory->password ?? 'N/A' }}">
                         </div>
                     </div>
+                    <div class="row">
+                        <label for="pw" class="col-sm-4 col-form-label">Deployment:</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" id="pw" value="{{ $inventory->latestDeployment->id ?? 'N/A' }}">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -172,27 +178,10 @@
                                 </form>
                             @else
                                 <!-- if has deployment -->
+                            <div class="d-grid gap-2">
+                                <a href="{{ route('admin.deployment.edit', ['deployment' => $inventory->latestDeployment->id]) }}" class="btn btn-primary" type="button">Return / edit</a>
+                            </div>
                             @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <span class="fs-4">Return</span>
-                            <form action="" method="post">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="at" class="form-label">Return by:</label>
-                                        <input type="text" name="assigned_to" id="at" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="rcby" class="form-label">Received by:</label>
-                                        <input type="text" name="received_by" id="rcby" class="form-control">
-                                    </div>
-                                </div>
-                                <input type="submit" value="Submit" class="btn btn-primary mt-3">
-                            </form>
                         </div>
                     </div>
                 </div>

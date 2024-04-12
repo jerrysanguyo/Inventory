@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deployment;
+use App\Models\Department;
+use App\Models\User;
 use App\Http\Requests\StoreDeploymentRequest;
 use App\Http\Requests\UpdateDeploymentRequest;
 
@@ -38,7 +40,13 @@ class DeploymentController extends Controller
     
     public function edit(Deployment $deployment)
     {
-        //
+        $listOfDepartment = Department::getAllDepartment();
+        $listOfUser = User::getAllUser();
+        return view('Deployment.edit', compact(
+            'listOfUser',
+            'listOfDepartment',
+            'deployment'
+        ));
     }
     
     public function update(UpdateDeploymentRequest $request, Deployment $deployment)
@@ -47,7 +55,7 @@ class DeploymentController extends Controller
         $validated = $request->validated();
         $validated['updated_by'] = auth()->id();
 
-        $inventory->update($validated);
+        $deployment->update($validated);
 
         return redirect()->route('admin.inventory.index')
                         ->with('success', 'Item updated successfullly.');
