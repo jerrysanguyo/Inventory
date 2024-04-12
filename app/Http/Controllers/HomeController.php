@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Inventory;
+use App\Models\Deployment;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,6 +15,80 @@ class HomeController extends Controller
     
     public function index()
     {
-        return view('home');
+        $totalCountItem = Inventory::count();
+        $totalUser = User::count();
+        $totalCountBorrowed = Deployment::where('status', 'borrowed')->count();
+        $totalCountReturn = Deployment::where('status', 'returned')->count();
+
+        
+        return view('home', compact(
+            'totalCountItem',
+            'totalUser',
+            'totalCountReturn',
+            'totalCountBorrowed'
+        ));
+    }
+
+    public function getEquipmentCount(Request $request)
+    {
+        $startDate = $request->input('startDate');
+        $endDate = $request->input('endDate');
+
+        $query = Inventory::query();
+
+        if ($startDate && $endDate) {
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        $count = $query->count();
+
+        return response()->json([
+            'count' => $count
+        ]);
+    }
+
+    public function getBorrowedCount(Request $request)
+    {
+        $startDate = $request->input('startDate');
+        $endDate = $request->input('endDate');
+        $query = Deployment::where('status', 'borrowed');
+        
+        if ($startDate && $endDate) {
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        $count = $query->count();
+
+        return response()->json(['count' => $count]);
+    }
+
+    public function getReturnedCount(Request $request)
+    {
+        $startDate = $request->input('startDate');
+        $endDate = $request->input('endDate');
+        $query = Deployment::where('status', 'returned');
+        
+        if ($startDate && $endDate) {
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        $count = $query->count();
+
+        return response()->json(['count' => $count]);
+    }
+
+    public function getUserCount(Request $request)
+    {
+        $startDate = $request->input('startDate');
+        $endDate = $request->input('endDate');
+        $query = User::query();
+        
+        if ($startDate && $endDate) {
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        $count = $query->count();
+
+        return response()->json(['count' => $count]);
     }
 }

@@ -20,15 +20,28 @@ Route::get('/unauthorized-access', [UnauthorizedController::class, 'index'])
 
 Route::middleware(['auth', Role::class])->group(function() {
     Route::prefix('admin')->name('admin.')->group(function () {
+
+        // dashboard
         Route::get('/dashboard', [HomeController::class, 'index'])
             ->name('dashboard');
+        Route::post('/equipment/count', [HomeController::class, 'getEquipmentCount'])
+            ->name('equipment.count');
+        Route::post('/counts/borrowed', [HomeController::class, 'getBorrowedCount'])
+            ->name('counts.borrowed');
+        Route::post('/counts/returned', [HomeController::class, 'getReturnedCount'])
+            ->name('counts.returned');
+        Route::post('/counts/users', [HomeController::class, 'getUserCount'])
+            ->name('counts.users');
+            
+        // CMS
         Route::resource('/department', DepartmentController::class);
         Route::resource('/unit', UnitController::class);
         Route::resource('/equipment', EquipmentController::class);
         Route::resource('/inventory', InventoryController::class);
         Route::resource('/deployment', DeploymentController::class);
 
+        // Deployment
         Route::PUT('/deployment/return/{deployment}', [DeploymentController::class, 'deploymentReturn'])
-            ->name('deployment.depReturn');;
+            ->name('deployment.depReturn');
     });
 });

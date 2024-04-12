@@ -18,12 +18,12 @@
                                 <input type="date" id="endDateEquip" class="form-control">
                             </div>
                             <div class="col-md-4 d-flex justify-content-md-start">
-                                <button class="btn btn-primary mt-4 mt-md-0">Generate</button>
+                                <button id="generateButtonEquipment" class="btn btn-primary mt-4 mt-md-0">Generate</button>
                             </div>
                         </div>
                         <hr>
                         <div class="row text-center m-3"> 
-                            <span class="fs-1">100 - Equipment</span>
+                            <span id="equipmentCount" class="fs-1">{{ $totalCountItem }} - Equipment</span>
                         </div>
                         <div class="row">
                             <button class="btn btn-primary">View details</button>
@@ -45,12 +45,12 @@
                                 <input type="date" id="endDateBor" class="form-control">
                             </div>
                             <div class="col-md-4 d-flex justify-content-md-start">
-                                <button class="btn btn-primary mt-4 mt-md-0">Generate</button>
+                                <button id="generateButtonBorrowed" class="btn btn-primary mt-4 mt-md-0">Generate</button>
                             </div>
                         </div>
                         <hr>
                         <div class="row text-center m-3"> 
-                            <span class="fs-1">100 - Borrowed</span>
+                            <span id="borrowCount" class="fs-1">{{ $totalCountBorrowed }} - Borrowed</span>
                         </div>
                         <div class="row">
                             <button class="btn btn-primary">View details</button>
@@ -72,12 +72,12 @@
                                 <input type="date" id="endDatePull" class="form-control">
                             </div>
                             <div class="col-md-4 d-flex justify-content-md-start">
-                                <button class="btn btn-primary mt-4 mt-md-0">Generate</button>
+                                <button id="generateButtonReturn" class="btn btn-primary mt-4 mt-md-0">Generate</button>
                             </div>
                         </div>
                         <hr>
                         <div class="row text-center m-3"> 
-                            <span class="fs-1">100 - Pull-out</span>
+                            <span id="returnCount" class="fs-1">{{ $totalCountReturn }} - Pull-out</span>
                         </div>
                         <div class="row">
                             <button class="btn btn-primary">View details</button>
@@ -99,12 +99,12 @@
                                 <input type="date" id="endDateUser" class="form-control">
                             </div>
                             <div class="col-md-4 d-flex justify-content-md-start">
-                                <button class="btn btn-primary mt-4 mt-md-0">Generate</button>
+                                <button id="generateButtonUser" class="btn btn-primary mt-4 mt-md-0">Generate</button>
                             </div>
                         </div>
                         <hr>
                         <div class="row text-center m-3"> 
-                            <span class="fs-1">100 - User</span>
+                            <span id="userCount" class="fs-1">{{ $totalUser }} - User</span>
                         </div>
                         <div class="row">
                             <button class="btn btn-primary">View details</button>
@@ -135,4 +135,32 @@
         </div>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    function fetchData(buttonId, route, startDateId, endDateId, countClass) {
+        const button = document.getElementById(buttonId);
+        button.onclick = () => {
+            fetch(route, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    startDate: document.getElementById(startDateId).value || null,
+                    endDate: document.getElementById(endDateId).value || null
+                })
+            })
+            .then(res => res.json())
+            .then(data => document.querySelector(countClass).textContent = `${data.count}`)
+            .catch(err => console.error('Error:', err));
+        };
+    }
+    
+    fetchData('generateButtonEquipment', '{{ route("admin.equipment.count") }}', 'startDateEquip', 'endDateEquip', '#equipmentCount');
+    fetchData('generateButtonBorrowed', '{{ route("admin.counts.borrowed") }}', 'startDateBor', 'endDateBor', '#borrowCount');
+    fetchData('generateButtonReturn', '{{ route("admin.counts.returned") }}', 'startDatePull', 'endDatePull', '#returnCount');
+    fetchData('generateButtonUser', '{{ route("admin.counts.users") }}', 'startDateUser', 'endDateUser', '#userCount');
+});
+</script>
 @endsection
