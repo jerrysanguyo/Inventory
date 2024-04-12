@@ -108,12 +108,6 @@
                             <input type="text" readonly class="form-control-plaintext" id="pw" value="{{ $inventory->password ?? 'N/A' }}">
                         </div>
                     </div>
-                    <div class="row">
-                        <label for="pw" class="col-sm-4 col-form-label">Deployment:</label>
-                        <div class="col-sm-8">
-                            <input type="text" readonly class="form-control-plaintext" id="pw" value="{{ $inventory->latestDeployment->id ?? 'N/A' }}">
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
