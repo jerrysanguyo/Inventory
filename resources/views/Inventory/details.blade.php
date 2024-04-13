@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between mb-3">
         <span class="fs-3">Inventory / Details</span>
         <a href="{{ route('admin.inventory.index') }}" class="text-decoration-none">
             <button class="btn btn-primary">
@@ -10,6 +10,11 @@
             </button>
         </a>
     </div>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-6">
             <!-- item details -->
@@ -154,6 +159,7 @@
                                 <form action="{{ route('admin.deployment.store') }}" method="post">
                                     @csrf
                                     @method('POST')
+                                    <input type="text" name="inventory" id="inv" class="form-control" value="{{ $inventory->id }}" hidden>
                                     <div class="row">
                                         <div class="col-md-12" hidden>
                                             <label for="ii" class="form-label">Inventory Id:</label>
@@ -208,6 +214,7 @@
                             <form action="{{ route('admin.deployment.depReturn', ['deployment' => $inventory->latestDeployment->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
+                                <input type="text" name="inventory" id="inv" class="form-control" value="{{ $inventory->id }}" hidden>
                                 <div class="col-md-12">
                                     <label for="retB" class="form-label">Return by:</label>
                                     <input type="text" name="return_by" id="retB" class="form-control">

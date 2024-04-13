@@ -29,7 +29,9 @@ class DeploymentController extends Controller
 
         Deployment::create($validated);
 
-        return redirect()->route('admin.inventory.index')
+        $inventoryId = $request->input('inventory');
+
+        return redirect()->route('admin.inventory.show', ['inventory' => $inventoryId])
                         ->with('success', 'Item has been assgined sucessfully');
     }
 
@@ -41,7 +43,9 @@ class DeploymentController extends Controller
 
         $deployment->update($validated);
 
-        return redirect()->route('admin.inventory.index')
+        $inventoryId = $request->input('inventory');
+
+        return redirect()->route('admin.inventory.show', ['inventory' => $inventoryId])
                         ->with('success', 'Item return successfully.');
     }
     
