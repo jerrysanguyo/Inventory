@@ -25,8 +25,10 @@
                         <div class="row text-center m-3"> 
                             <span id="equipmentCount" class="fs-1">{{ $totalCountItem }} - Equipment</span>
                         </div>
-                        <div class="row">
-                            <button class="btn btn-primary">View details</button>
+                        <div class="d-grid gap-2 text-center">
+                            <a href="{{ route('admin.inventory.index') }}">
+                                <button class="btn btn-primary">View details</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -52,8 +54,10 @@
                         <div class="row text-center m-3"> 
                             <span id="borrowCount" class="fs-1">{{ $totalCountBorrowed }} - Borrowed</span>
                         </div>
-                        <div class="row">
-                            <button class="btn btn-primary">View details</button>
+                        <div class="d-grid gap-2 text-center">
+                            <a href="#">
+                                <button class="btn btn-primary">View details</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -79,8 +83,10 @@
                         <div class="row text-center m-3"> 
                             <span id="returnCount" class="fs-1">{{ $totalCountReturn }} - Pull-out</span>
                         </div>
-                        <div class="row">
-                            <button class="btn btn-primary">View details</button>
+                        <div class="d-grid gap-2 text-center">
+                            <a href="#">
+                                <button class="btn btn-primary">View details</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -106,8 +112,10 @@
                         <div class="row text-center m-3"> 
                             <span id="userCount" class="fs-1">{{ $totalUser }} - User</span>
                         </div>
-                        <div class="row">
-                            <button class="btn btn-primary">View details</button>
+                        <div class="d-grid gap-2 text-center">
+                            <a href="#">
+                                <button class="btn btn-primary">View details</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -117,16 +125,37 @@
             <div class="col-md-6">
                 <div class="card border-0 shadow mt-3">
                     <div class="card-body">
-                        <span class="fs-4"><i class="fa-solid fa-timeline m-3"></i>Borrowed History</span>
+                        <span class="fs-4"><i class="fa-solid fa-timeline m-3"></i>Item History</span>
                         <hr>
-                        
+                        <table class="table" id="itemHist-table">
+                            <thead>
+                                <tr>
+                                    <th>Issued to</th>
+                                    <th>Department</th>
+                                    <th>Status</th>
+                                    <th>Deploy date</th>
+                                    <th>Return date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($listOfDeployment as $deployment)
+                                <tr>
+                                    <td>{{ $deployment->assigned_to }}</td>
+                                    <td>{{ $deployment->department_id }}</td>
+                                    <td>{{ $deployment->status }}</td>
+                                    <td>{{ $deployment->deploy_date }}</td>
+                                    <td>{{ $deployment->return_date ?? 'N/A' }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="card border-0 shadow mt-3">
                     <div class="card-body">
-                        <span class="fs-4"><i class="fa-solid fa-timeline m-3"></i>Pull-out History</span>
+                        <span class="fs-4"><i class="fa-solid fa-chart-simple m-3"></i>Item Chart</span>
                         <hr>
                         
                     </div>
@@ -135,6 +164,19 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script>
+    $(document).ready(function() {
+        $('#itemHist-table').DataTable({
+            "responsive": true,
+            "processing": true,
+            "serverSide": false,
+            "pageLength": 10,
+            "order": [[0, "asc"]],
+        });
+    });
+    </script>
+@endpush
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     function fetchData(buttonId, route, startDateId, endDateId, countClass) {

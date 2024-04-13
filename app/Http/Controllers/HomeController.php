@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\DataTables\IHPerItemDataTable;
 use App\Models\Inventory;
 use App\Models\Deployment;
 use App\Models\User;
@@ -13,16 +14,17 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
     
-    public function index()
+    public function index(IHPerItemDataTable $DataTable)
     {
+        $listOfDeployment = Deployment::getAllDeployment();
         $totalCountItem = Inventory::count();
         $totalUser = User::count();
         $totalCountBorrowed = Deployment::where('status', 'borrowed')->count();
         $totalCountReturn = Deployment::where('status', 'returned')->count();
 
-        
-        return view('home', compact(
+        return $DataTable->render('home',compact(
             'totalCountItem',
+            'listOfDeployment',
             'totalUser',
             'totalCountReturn',
             'totalCountBorrowed'
