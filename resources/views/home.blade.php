@@ -157,7 +157,7 @@
                     <div class="card-body">
                         <span class="fs-4"><i class="fa-solid fa-chart-simple m-3"></i>Item Chart</span>
                         <hr>
-                        
+                        <canvas id="deploymentChart" style="max-width: 100%;"></canvas>
                     </div>
                 </div>
             </div>
@@ -178,6 +178,34 @@
     </script>
 @endpush
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+    var ctx = document.getElementById('deploymentChart').getContext('2d');
+    var deploymentChart = new Chart(ctx, {
+        type: 'bar', 
+        data: {
+            labels: ['Borrowed', 'Returned'],
+            datasets: [{
+                label: 'Deployment Stats',
+                data: [@json($chartData['borrowed']), @json($chartData['returned'])],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true, 
+            cutout: '50%', 
+        }
+    });
+});
 document.addEventListener('DOMContentLoaded', () => {
     function fetchData(buttonId, route, startDateId, endDateId, countClass) {
         const button = document.getElementById(buttonId);
