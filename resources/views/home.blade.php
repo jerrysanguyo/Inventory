@@ -181,28 +181,48 @@
 document.addEventListener('DOMContentLoaded', function () {
     var ctx = document.getElementById('deploymentChart').getContext('2d');
     var deploymentChart = new Chart(ctx, {
-        type: 'bar', 
+        type: 'bar',
         data: {
-            labels: ['Borrowed', 'Returned'],
-            datasets: [{
-                label: 'Deployment Stats',
-                data: [@json($chartData['borrowed']), @json($chartData['returned'])],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)'
-                ],
-                borderWidth: 2
-            }]
+            labels: ['Categories'],
+            datasets: [
+                {
+                    label: 'Borrowed',
+                    data: [@json($chartData['borrowed'])],
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 2
+                },
+                {
+                    label: 'Returned',
+                    data: [@json($chartData['returned'])],
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 2
+                }
+            ]
         },
         options: {
-            responsive: true, 
-            cutout: '50%', 
+            responsive: true,
+            legend: {
+                display: true,
+                position: 'top',
+                labels: {
+                    fontColor: 'black',
+                    fontSize: 14,
+                    boxWidth: 20
+                }
+            },
+            scales: {
+                xAxes: [{
+                    categoryPercentage: 1.0,
+                    barPercentage: 1.0
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
         }
     });
 });
