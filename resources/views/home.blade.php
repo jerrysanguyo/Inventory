@@ -155,7 +155,7 @@
             <div class="col-md-6">
                 <div class="card border-0 shadow mt-3">
                     <div class="card-body">
-                        <span class="fs-4"><i class="fa-solid fa-chart-simple m-3"></i>Item Chart</span>
+                        <span class="fs-4"><i class="fa-solid fa-chart-simple m-3"></i>Item history Chart</span>
                         <hr>
                         <canvas id="deploymentChart" style="max-width: 100%;"></canvas>
                     </div>
@@ -212,17 +212,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     boxWidth: 20
                 }
             },
-            scales: {
-                xAxes: [{
-                    categoryPercentage: 1.0,
-                    barPercentage: 1.0
-                }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
         }
     });
 });

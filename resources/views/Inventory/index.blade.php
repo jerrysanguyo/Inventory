@@ -9,6 +9,7 @@
                     Add Item
             </button>
         </a>
+        <a href="{{ route('inventory.export') }}" class="btn btn-success">Export All to Excel</a>
     </div>
     <div class="card justify-content-center">
         <div class="card-body">

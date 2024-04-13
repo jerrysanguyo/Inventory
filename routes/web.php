@@ -17,6 +17,9 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/unauthorized-access', [UnauthorizedController::class, 'index'])
     ->name('unauthorized');
+    
+Route::get('/inventory/export', [App\Http\Controllers\InventoryController::class, 'exportExcel'])
+    ->name('inventory.export');
 
 Route::middleware(['auth', Role::class])->group(function() {
     Route::prefix('admin')->name('admin.')->group(function () {
@@ -43,5 +46,9 @@ Route::middleware(['auth', Role::class])->group(function() {
         // Deployment
         Route::PUT('/deployment/return/{deployment}', [DeploymentController::class, 'deploymentReturn'])
             ->name('deployment.depReturn');
+
+        // export
+        // Route::get('/inventory/export', [App\Http\Controllers\InventoryController::class, 'exportExcel'])
+        //     ->name('inventory.export');
     });
 });
