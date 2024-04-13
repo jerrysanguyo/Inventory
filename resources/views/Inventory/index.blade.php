@@ -4,12 +4,14 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between">
         <span class="fs-3">Inventory</span>
-        <a href="{{ route('admin.inventory.create') }}" class="text-decoration-none">
-            <button class="btn btn-primary">
-                    Add Item
-            </button>
-        </a>
-        <a href="{{ route('inventory.export') }}" class="btn btn-success">Export All to Excel</a>
+        <div class="ms-auto"> 
+            <a href="{{ route('admin.inventory.create') }}" class="text-decoration-none me-2 btn btn-primary">
+                Add Item
+            </a>
+            <a href="{{ route('inventory.export') }}" class="btn btn-success">
+                Export All to Excel
+            </a>
+        </div>
     </div>
     <div class="card justify-content-center">
         <div class="card-body">
