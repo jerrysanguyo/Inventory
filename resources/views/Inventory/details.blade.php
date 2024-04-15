@@ -4,11 +4,19 @@
 <div class="container">
     <div class="d-flex justify-content-between mb-3">
         <span class="fs-3">Inventory / Details</span>
+        @if(Auth::user()->role === 'admin')
         <a href="{{ route('admin.inventory.index') }}" class="text-decoration-none">
             <button class="btn btn-primary">
                     Back
             </button>
         </a>
+        @else
+        <a href="{{ route('user.inventory.index') }}" class="text-decoration-none">
+            <button class="btn btn-primary">
+                    Back
+            </button>
+        </a>
+        @endif
     </div>
     @if(session('success'))
         <div class="alert alert-success">
@@ -132,6 +140,7 @@
                             <input type="text" readonly class="form-control-plaintext" id="pw" value="{{ $inventory->password ?? 'N/A' }}">
                         </div>
                     </div>
+                    @if(Auth::user()->role === 'admin')
                     <div class="row">
                         <div class="col-md-12">
                             @if($hasDeployment)
@@ -144,6 +153,9 @@
                             @endif
                         </div>
                     </div>
+                    @else
+
+                    @endif
                 </div>
             </div>
         </div>
@@ -151,7 +163,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card mb-3">
-                        <div class="card-body">
+                        <div class="card-body"> 
+                        @if(Auth::user()->role === 'admin')
                             @if(!$hasDeployment)
                                 <!-- if no deployment -->
                                 <!-- assign form -->
@@ -208,34 +221,38 @@
                                     </div>
                                     <input type="submit" value="Submit" class="btn btn-primary mt-3">
                                 </form>
-                            @else
-                            <!-- return form -->
-                            <span class="fs-4">Return:</span>
-                            <form action="{{ route('admin.deployment.depReturn', ['deployment' => $inventory->latestDeployment->id]) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                                <input type="text" name="inventory" id="inv" class="form-control" value="{{ $inventory->id }}" hidden>
-                                <div class="col-md-12">
-                                    <label for="retB" class="form-label">Return by:</label>
-                                    <input type="text" name="return_by" id="retB" class="form-control">
-                                </div>
-                                <div class="col-md-12">
-                                    <label for="retD" class="form-label">Return date:</label>
-                                    <input type="date" name="return_date" id="retD" class="form-control">
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label for="recB" class="form-label">Received by:</label>
-                                    <select name="received_by_return" id="recB" class="form-select">
-                                        @foreach ($listOfUser as $User)
-                                        <option value="{{ $User->id }}">{{ $User->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-12">
-                                    <input type="submit" value="Return" class="btn btn-primary">
-                                </div>
-                            </form>
+                                @else
+                                <!-- return form -->
+                                <span class="fs-4">Return:</span>
+                                <form action="{{ route('admin.deployment.depReturn', ['deployment' => $inventory->latestDeployment->id]) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                    <input type="text" name="inventory" id="inv" class="form-control" value="{{ $inventory->id }}" hidden>
+                                    <div class="col-md-12">
+                                        <label for="retB" class="form-label">Return by:</label>
+                                        <input type="text" name="return_by" id="retB" class="form-control">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="retD" class="form-label">Return date:</label>
+                                        <input type="date" name="return_date" id="retD" class="form-control">
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="recB" class="form-label">Received by:</label>
+                                        <select name="received_by_return" id="recB" class="form-select">
+                                            @foreach ($listOfUser as $User)
+                                            <option value="{{ $User->id }}">{{ $User->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input type="submit" value="Return" class="btn btn-primary">
+                                    </div>
+                                </form>
                             @endif
+                            @else
+                            <span class="fs-4">You do not have an access with returning or assigning an item</span>
+                        @endif
+                    
                         </div>
                     </div>
                 </div>
@@ -275,12 +292,16 @@
         <div class="card-body">
             <span class="fs-3">Delete this Item</span>
             <hr>
+            @if(Auth::user()->role === 'admin')
             Deleting an item will be pemanently erase. I highly suggest to consult other before proceeding to deletion.
             <form action="{{ route('admin.inventory.destroy', $inventory->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <input type="submit" onclick="return confirm('Are you sure you want to delete this Item?');" value="Delete" class="btn btn-danger mt-3">
             </form>
+            @else
+            <span class="fs-4">You do not have an access with deleting an item.</span>
+            @endif
         </div>
     </div>
 </div>
