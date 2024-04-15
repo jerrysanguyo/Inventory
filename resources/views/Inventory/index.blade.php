@@ -52,6 +52,7 @@
                         <th>Inventory Name</th>
                         <th>Item type</th>
                         <th>Serial Number</th>
+                        <th>Status</th>
                         <th>Department</th>
                         <th>Issued to</th>
                         <th>Action</th>
@@ -64,6 +65,7 @@
                         <td>{{ $inventory->name }}</td>
                         <td>{{ $inventory->equipmentName->name }}</td>
                         <td>{{ $inventory->serial_number }}</td>
+                        <td>{{ $inventory->latestDeployment->status ?? 'In-stock' }}</td>
                         <td>{{ $inventory->latestDeployment->departmentName->name ?? 'N/A' }}</td>
                         <td>{{ $inventory->latestDeployment->assigned_to ?? 'N/A'  }}</td>
                         <td>

@@ -26,7 +26,11 @@
                             <span id="equipmentCount" class="fs-1">{{ $totalCountItem }} - Equipment</span>
                         </div>
                         <div class="d-grid gap-2 text-center">
+                            @if(Auth::user()->role === 'admin')
                             <a href="{{ route('admin.inventory.index') }}">
+                            @else
+                            <a href="{{ route('user.inventory.index') }}">
+                            @endif
                                 <button class="btn btn-primary">View details</button>
                             </a>
                         </div>
@@ -55,7 +59,11 @@
                             <span id="borrowCount" class="fs-1">{{ $totalCountBorrowed }} - Borrowed</span>
                         </div>
                         <div class="d-grid gap-2 text-center">
-                            <a href="#">
+                            @if(Auth::user()->role === 'admin')
+                            <a href="{{ route('admin.inventory.index') }}">
+                            @else
+                            <a href="{{ route('user.inventory.index') }}">
+                            @endif
                                 <button class="btn btn-primary">View details</button>
                             </a>
                         </div>
@@ -84,7 +92,11 @@
                             <span id="returnCount" class="fs-1">{{ $totalCountReturn }} - Pull-out</span>
                         </div>
                         <div class="d-grid gap-2 text-center">
-                            <a href="#">
+                            @if(Auth::user()->role === 'admin')
+                            <a href="{{ route('admin.inventory.index') }}">
+                            @else
+                            <a href="{{ route('user.inventory.index') }}">
+                            @endif
                                 <button class="btn btn-primary">View details</button>
                             </a>
                         </div>
@@ -113,7 +125,7 @@
                             <span id="userCount" class="fs-1">{{ $totalUser }} - User</span>
                         </div>
                         <div class="d-grid gap-2 text-center">
-                            <a href="#">
+                            <a href="{{ route('admin.account.index') }}">
                                 <button class="btn btn-primary">View details</button>
                             </a>
                         </div>
