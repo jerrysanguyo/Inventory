@@ -8,13 +8,30 @@
             <a href="{{ route('admin.inventory.create') }}" class="text-decoration-none me-2 btn btn-primary">
                 Add Item
             </a>
-            <a href="{{ route('inventory.export') }}" class="btn btn-success">
-                Export All to Excel
-            </a>
         </div>
     </div>
     <div class="card justify-content-center">
         <div class="card-body">
+            <form action="{{ route('inventory.export') }}" method="GET">
+                @csrf
+                <div class="row align-items-end mt-4">
+                    <div class="col-md-1">
+                        <label for="startDate" class="form-label">Start date:</label>
+                        <input type="date" id="startDate" class="form-control"> 
+                    </div>
+                    <div class="col-md-1">
+                        <label for="endDate" class="form-label">End date:</label>
+                        <input type="date" id="endDate" class="form-control">
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-md-start">
+                        <button class="btn btn-primary mt-4 mt-md-0">Generate</button>
+                    </div>
+                </div>
+            </form>
+            <!-- <a href="{{ route('inventory.export') }}" class="btn btn-success">
+                Export All to Excel
+            </a> -->
+
             @if(session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}

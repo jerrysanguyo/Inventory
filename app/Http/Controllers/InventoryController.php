@@ -111,13 +111,19 @@ class InventoryController extends Controller
     }
 
 
-    public function exportExcel()
+    public function exportExcel(Request $request)
     {
+        
+        $startDate = $request->input('startDate');
+        $endDate = $request->input('endDate');
+
         $inventories = Inventory::with([
             'latestDeployment', 'latestDeployment.departmentName',
             'latestDeployment.issuedName', 'latestDeployment.receivedName',
             'unitName', 'equipmentName'
-        ])->get();
+        ])
+            ->whereBetween('deploy_date', [$startDate, $endDate])
+            ->get();
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
