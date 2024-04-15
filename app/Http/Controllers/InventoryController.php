@@ -14,6 +14,7 @@ use App\Http\Requests\StoreInventoryRequest;
 use App\Http\Requests\UpdateInventoryRequest;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Illuminate\Http\Request;
 
 class InventoryController extends Controller
 {
@@ -113,17 +114,21 @@ class InventoryController extends Controller
 
     public function exportExcel(Request $request)
     {
-        
         $startDate = $request->input('startDate');
         $endDate = $request->input('endDate');
-
+    
         $inventories = Inventory::with([
-            'latestDeployment', 'latestDeployment.departmentName',
-            'latestDeployment.issuedName', 'latestDeployment.receivedName',
-            'unitName', 'equipmentName'
+            'latestDeployment',
+            'latestDeployment.departmentName',
+            'latestDeployment.issuedName', 
+            'latestDeployment.receivedName',
+            'unitName', 
+            'equipmentName'
         ])
-            ->whereBetween('deploy_date', [$startDate, $endDate])
-            ->get();
+        ->whereHas('latestDeployment', function($query) use ($startDate, $endDate) {
+            $query->whereBetween('deploy_date', [$startDate, $endDate]);
+        })
+        ->get();
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

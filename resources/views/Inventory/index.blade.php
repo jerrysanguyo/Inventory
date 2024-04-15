@@ -17,11 +17,11 @@
                 <div class="row align-items-end mt-4">
                     <div class="col-md-1">
                         <label for="startDate" class="form-label">Start date:</label>
-                        <input type="date" id="startDate" class="form-control"> 
+                        <input type="date" id="startDate" name="startDate" class="form-control"> 
                     </div>
                     <div class="col-md-1">
                         <label for="endDate" class="form-label">End date:</label>
-                        <input type="date" id="endDate" class="form-control">
+                        <input type="date" id="endDate" name="endDate" class="form-control">
                     </div>
                     <div class="col-md-4 d-flex justify-content-md-start">
                         <button class="btn btn-primary mt-4 mt-md-0">Generate</button>
