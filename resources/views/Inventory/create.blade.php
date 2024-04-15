@@ -4,6 +4,7 @@
 <div class="container">
     <div class="d-flex justify-content-between">
         <span class="fs-3">Inventory / Inventory Create</span>
+    @if(Auth::user()->role === 'admin')
         <a href="{{ route('admin.inventory.index') }}" class="text-decoration-none">
             <button class="btn btn-primary">
                     Back
@@ -13,6 +14,17 @@
     <div class="card justify-content-center">
         <div class="card-body">
             <form action="{{ route('admin.inventory.store') }}" method="POST">
+        @else
+        <a href="{{ route('user.inventory.index') }}" class="text-decoration-none">
+            <button class="btn btn-primary">
+                    Back
+            </button>
+        </a>
+    </div>
+    <div class="card justify-content-center">
+        <div class="card-body">
+            <form action="{{ route('user.inventory.store') }}" method="POST">
+    @endif
                 @csrf
                 @method('POST')
                 <div class="row">

@@ -9,6 +9,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\DeploymentController;
 use App\Http\Middleware\Role;
+use App\Http\Middleware\UserRole;
 
 Route::get('/', function () {
     return view('welcome');
@@ -50,5 +51,28 @@ Route::middleware(['auth', Role::class])->group(function() {
         // export
         // Route::get('/inventory/export', [App\Http\Controllers\InventoryController::class, 'exportExcel'])
         //     ->name('inventory.export');
+    });
+});
+
+Route::middleware(['auth', UserRole::class])->group(function() {
+    Route::prefix('user')->name('user.')->group(function () {
+        //dashboard
+        Route::get('/dashboard', [HomeController::class, 'index'])
+            ->name('dashboard');
+        Route::post('/equipment/count', [HomeController::class, 'getEquipmentCount'])
+            ->name('equipment.count');
+        Route::post('/counts/borrowed', [HomeController::class, 'getBorrowedCount'])
+            ->name('counts.borrowed');
+        Route::post('/counts/returned', [HomeController::class, 'getReturnedCount'])
+            ->name('counts.returned');
+        Route::post('/counts/users', [HomeController::class, 'getUserCount'])
+            ->name('counts.users');
+
+        // Route::get('/inventory', [InventoryController::class, 'index'])
+        //     ->name('inventory.index');
+        // Route::get('/inventory/details', [InventoryController::class, 'show'])
+        //     ->name('inventory.show');
+        Route::resource('/inventory', InventoryController::class);
+
     });
 });

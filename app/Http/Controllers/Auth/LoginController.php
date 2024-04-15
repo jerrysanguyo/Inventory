@@ -13,9 +13,9 @@ class LoginController extends Controller
     {
         if (auth()->user()->role == 'admin') {
             return '/admin/dashboard';
+        } else if (auth()->user()->role == 'user') {
+            return '/user/dashboard';
         }
-
-        return '/user/dashboard';
     }
 
     public function __construct()

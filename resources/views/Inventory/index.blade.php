@@ -4,6 +4,7 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between">
         <span class="fs-3">Inventory</span>
+    @if (Auth::user()->role === 'admin')
         <div class="ms-auto"> 
             <a href="{{ route('admin.inventory.create') }}" class="text-decoration-none me-2 btn btn-primary">
                 Add Item
@@ -28,9 +29,16 @@
                     </div>
                 </div>
             </form>
-            <!-- <a href="{{ route('inventory.export') }}" class="btn btn-success">
-                Export All to Excel
-            </a> -->
+        @else
+        <div class="ms-auto"> 
+            <a href="{{ route('user.inventory.create') }}" class="text-decoration-none me-2 btn btn-primary">
+                Add Item
+            </a>
+        </div>
+    </div>
+    <div class="card justify-content-center">
+        <div class="card-body">
+    @endif
 
             @if(session('success'))
                 <div class="alert alert-success">
@@ -64,6 +72,8 @@
                                     Actions
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    
+                                @if(Auth::user()->role === 'admin') 
                                     <li>
                                         <a class="dropdown-item" href="{{ route('admin.inventory.edit', ['inventory' => $inventory->id]) }}">
                                             Update
@@ -74,6 +84,18 @@
                                             View Details
                                         </a>
                                     </li>
+                                    @else
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('user.inventory.edit', ['inventory' => $inventory->id]) }}">
+                                            Update
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('user.inventory.show', ['inventory' => $inventory->id]) }}">
+                                            View Details
+                                        </a>
+                                    </li>
+                                @endif
                                 </ul>
                             </div>
                         </td>

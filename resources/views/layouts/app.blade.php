@@ -57,7 +57,29 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     @if (Auth::user()->role === 'user')
-                        <a href="{{ route('admin.dashboard') }}" class="navbar-brand">IT Inventory</a>
+                        <div class="d-flex justify-content-end">
+                            <div class="dropdown navbar-brand">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="dropdown-item">Account details</a></li>
+                                    <li><a href="#" class="dropdown-item">Change password</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+                                        
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                         @else
                         <div class="d-flex justify-content-end">
                             <div class="dropdown navbar-brand">
@@ -137,13 +159,13 @@
                             @else
                                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                                 <li class="side-nav-title mb-3">Navigation</li>
-                                <li class="nav-item fs-5 {{ Request::is('admin.dashboard') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                                <li class="nav-item fs-5 {{ Request::is('user.dashboard') ? 'active' : '' }}">
+                                    <a href="{{ route('user.dashboard') }}" class="nav-link">
                                         <i class="fa-solid fa-chart-line mx-3"></i> Dashboard
                                     </a>
                                 </li>
-                                <li class="nav-item fs-5 {{ Request::is('admin.inventory.index') ? 'active' : '' }}">
-                                    <a href="{{ route('admin.inventory.index') }}" class="nav-link">
+                                <li class="nav-item fs-5 {{ Request::is('user.inventory.index') ? 'active' : '' }}">
+                                    <a href="{{ route('user.inventory.index') }}" class="nav-link">
                                         <i class="fa-solid fa-boxes-stacked mx-3"></i> Inventory
                                     </a>
                                 </li>
