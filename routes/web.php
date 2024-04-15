@@ -74,11 +74,7 @@ Route::middleware(['auth', UserRole::class])->group(function() {
             ->name('counts.returned');
         Route::post('/counts/users', [HomeController::class, 'getUserCount'])
             ->name('counts.users');
-
-        // Route::get('/inventory', [InventoryController::class, 'index'])
-        //     ->name('inventory.index');
-        // Route::get('/inventory/details', [InventoryController::class, 'show'])
-        //     ->name('inventory.show');
+            
         Route::resource('/inventory', InventoryController::class);
 
     });

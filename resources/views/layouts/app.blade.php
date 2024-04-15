@@ -50,7 +50,7 @@
             <div class="container-fluid">
                 @guest
                     @if (Route::has('login'))
-                        <a href="#" class="navbar-brand">IT Inventory</a>
+                        <a href="/" class="navbar-brand">IT Inventory</a>
                     @endif
                 @else
                     <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
