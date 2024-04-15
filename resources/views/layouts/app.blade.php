@@ -64,7 +64,6 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" class="dropdown-item">Account details</a></li>
-                                    <li><a href="#" class="dropdown-item">Change password</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
@@ -88,7 +87,6 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#" class="dropdown-item">Account details</a></li>
-                                    <li><a href="#" class="dropdown-item">Change password</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
@@ -128,12 +126,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item fs-5">
-                                    <a href="#" class="nav-link">
-                                        <i class="fa-solid fa-file-excel mx-3"></i></i> Report
-                                    </a>
-                                </li>
-                                <li class="nav-item fs-5">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{route('admin.account.index')}}" class="nav-link">
                                         <i class="fa-solid fa-user mx-3"></i> Accounts
                                     </a>
                                 </li>
@@ -167,11 +160,6 @@
                                 <li class="nav-item fs-5 {{ Request::is('user.inventory.index') ? 'active' : '' }}">
                                     <a href="{{ route('user.inventory.index') }}" class="nav-link">
                                         <i class="fa-solid fa-boxes-stacked mx-3"></i> Inventory
-                                    </a>
-                                </li>
-                                <li class="nav-item fs-5">
-                                    <a href="#" class="nav-link">
-                                        <i class="fa-solid fa-file-excel mx-3"></i></i> Report
                                     </a>
                                 </li>
                             </ul>
