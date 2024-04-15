@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
@@ -74,11 +75,30 @@ class AccountController extends Controller
                          ->with('success', 'Role updated successfully.');
     }
 
-    public function makeAdmin (User $account)
+    public function makeAdmin(User $account)
     {
         $account->update(['role' => 'admin']);
     
         return redirect()->route('admin.account.index') 
                          ->with('success', 'Role updated successfully.');
+    }
+
+    public function profile()
+    {
+        return view('Account.details');
+    }
+
+    public function profileEdit(UpdateUserRequest $request)
+    {
+        $user = Auth::user();
+        $validated = $request->validated();
+        $validated['password'] = Hash::make($validated['password']);
+
+        $user->update($validated);
+
+        $route = $user->role === 'admin' ? 'admin.account.profile' : 'user.account.profile';
+        
+        return redirect()->route($route)
+                        ->with('success', 'Account updated successfully.');
     }
 }

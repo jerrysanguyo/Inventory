@@ -37,6 +37,12 @@ Route::middleware(['auth', Role::class])->group(function() {
             ->name('counts.returned');
         Route::post('/counts/users', [HomeController::class, 'getUserCount'])
             ->name('counts.users');
+
+        // profile
+        Route::get('/account/profile', [AccountController::class, 'profile'])
+            ->name('account.profile');
+        Route::PUT('/account/profile/edit', [AccountController::class, 'profileEdit'])
+            ->name('account.profile.edit');
             
         // CMS
         Route::resource('/department', DepartmentController::class);
@@ -76,6 +82,12 @@ Route::middleware(['auth', UserRole::class])->group(function() {
             ->name('counts.users');
             
         Route::resource('/inventory', InventoryController::class);
+
+        // profile
+        Route::get('/account/profile', [AccountController::class, 'profile'])
+            ->name('account.profile');
+        Route::PUT('/account/profile/edit', [AccountController::class, 'profileEdit'])
+            ->name('account.profile.edit');
 
     });
 });

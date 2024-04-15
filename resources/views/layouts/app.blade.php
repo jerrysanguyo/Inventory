@@ -63,7 +63,7 @@
                                     {{ Auth::user()->name }}
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" class="dropdown-item">Account details</a></li>
+                                    <li><a href="{{ route('user.account.profile') }}" class="dropdown-item">Account details</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
@@ -86,7 +86,7 @@
                                     {{ Auth::user()->name }}
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" class="dropdown-item">Account details</a></li>
+                                    <li><a href="{{ route('admin.account.profile') }}" class="dropdown-item">Account details</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
