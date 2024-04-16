@@ -61,7 +61,7 @@
                                         <form action="{{ route('admin.account.makeAdmin', ['account' => $User->id]) }}" method="POST">
                                             @csrf
                                             @method('PUT')
-                                            <button type="submit" class="dropdown-item">Assign to User</button>
+                                            <button type="submit" class="dropdown-item">Assign to Admin</button>
                                         </form>
                                     </li>
                                     @else

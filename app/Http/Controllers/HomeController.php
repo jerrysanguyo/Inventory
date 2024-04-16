@@ -21,12 +21,11 @@ class HomeController extends Controller
         $totalUser = User::count();
         $totalCountBorrowed = Deployment::where('status', 'borrowed')->count();
         $totalCountReturn = Deployment::where('status', 'returned')->count();
-    
-        // Prepare data for the chart
+
         $chartData = [
             'borrowed' => $totalCountBorrowed,
             'returned' => $totalCountReturn,
-            'totalDeployments' => count($listOfDeployment) // Assuming getListOfDeployment returns an array or collection
+            'totalDeployments' => count($listOfDeployment) 
         ];
     
         return $DataTable->render('home', compact(
@@ -35,7 +34,7 @@ class HomeController extends Controller
             'totalUser',
             'totalCountReturn',
             'totalCountBorrowed',
-            'chartData' // Pass chart data to the view
+            'chartData'
         ));
     }
 
