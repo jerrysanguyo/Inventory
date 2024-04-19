@@ -11,7 +11,7 @@
         </a>
     </div>
     <div class="card justify-content-center">
-        <div class="card-body">
+        <div class="card-body overflow-x-auto">
             @if(session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}

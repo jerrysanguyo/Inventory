@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="card justify-content-center">
-        <div class="card-body">
+        <div class="card-body overflow-x-auto">
             <form action="{{ route('inventory.export') }}" method="GET">
                 @csrf
                 <div class="row align-items-end mt-4">

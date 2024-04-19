@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="card border-0 shadow mt-3">
-                    <div class="card-body">
+                    <div class="card-body overflow-x-auto">
                         <span class="fs-4"><i class="fa-solid fa-laptop m-3"></i>Total Equipment</span>
                         <div class="row align-items-end mt-4">
                             <div class="col-md-4">
@@ -39,7 +39,7 @@
             </div>
             <div class="col-md-3">
                 <div class="card border-0 shadow mt-3">
-                    <div class="card-body">
+                    <div class="card-body overflow-x-auto">
                         <span class="fs-4"><i class="fa-solid fa-handshake m-3"></i>Total Borrowed</span>
                         <div class="row align-items-end mt-4">
                             <div class="col-md-4">
@@ -72,7 +72,7 @@
             </div>
             <div class="col-md-3">
                 <div class="card border-0 shadow mt-3">
-                    <div class="card-body">
+                    <div class="card-body overflow-x-auto">
                         <span class="fs-4"><i class="fa-solid fa-hand-holding-hand m-3"></i>Total Pull-out</span>
                         <div class="row align-items-end mt-4">
                             <div class="col-md-4">
@@ -105,7 +105,7 @@
             </div>
             <div class="col-md-3">
                 <div class="card border-0 shadow mt-3">
-                    <div class="card-body">
+                    <div class="card-body overflow-x-auto">
                         <span class="fs-4"><i class="fa-solid fa-person m-3"></i>Total User</span>
                         <div class="row align-items-end mt-4">
                             <div class="col-md-4">
@@ -135,7 +135,7 @@
         </div>
         <div class="row mt-3">
             <div class="col-md-6">
-                <div class="card border-0 shadow mt-3">
+                <div class="card border-0 shadow mt-3 overflow-x-auto">
                     <div class="card-body">
                         <span class="fs-4"><i class="fa-solid fa-timeline m-3"></i>Item History</span>
                         <hr>
