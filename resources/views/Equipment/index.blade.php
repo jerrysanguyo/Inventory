@@ -67,7 +67,7 @@
             "processing": true,
             "serverSide": false,
             "pageLength": 10,
-            "order": [[0, "asc"]],
+            "order": [[0, "desc"]],
         });
     });
     </script>
