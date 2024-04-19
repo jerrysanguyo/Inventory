@@ -1,17 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style>
+
+</style>
 <div class="container-fluid">
     <!-- upper section -->
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card border-0 shadow mt-3">
-                <div class="card-body">
-                    <canvas id="equipmentChart"></canvas>
+                <div class="card-body card-chart mt-3">
+                    <canvas id="equipmentChart" style="max-width: 100%;"></canvas>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="row">
                 <div class="col-md-6">
                     <div class="card border-0 shadow mt-3">
@@ -227,9 +231,25 @@ document.addEventListener('DOMContentLoaded', function () {
                 title: {
                     display: true,
                     text: 'Deployment Status'
+                },
+                datalabels: {
+                    color: '#ffffff',
+                    anchor: 'end',
+                    align: 'start',
+                    offset: 10,
+                    font: {
+                        weight: 'bold',
+                        size: 14
+                    },
+                    formatter: (value, context) => {
+                        let sum = context.dataset.data.reduce((a, b) => a + b, 0);
+                        let percentage = (value / sum * 100).toFixed(2) + '%';
+                        return context.chart.data.labels[context.dataIndex] + ': ' + percentage;
+                    }
                 }
             }
-        }
+        },
+        plugins: [ChartDataLabels]
     });
 
     // Equipment Chart
@@ -238,10 +258,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var colors = [
         'rgba(255, 99, 132, 0.6)',
         'rgba(54, 162, 235, 0.6)',
-        'rgba(255, 206, 86, 0.6)', 
-        'rgba(75, 192, 192, 0.6)', 
+        'rgba(255, 206, 86, 0.6)',
+        'rgba(75, 192, 192, 0.6)',
         'rgba(153, 102, 255, 0.6)',
-        'rgba(255, 159, 64, 0.6)', 
+        'rgba(255, 159, 64, 0.6)',
+        'rgba(75, 0, 130, 0.6)',
+        'rgba(165, 42, 42, 0.6)',
     ];
 
     while (colors.length < {!! json_encode($equipTypes->keys()) !!}.length) {
@@ -268,10 +290,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 title: {
                     display: true,
-                    text: 'Equipment Types and Counts'
+                    text: 'Equipment in inventory'
+                },
+                datalabels: {
+                    color: '#ffffff',
+                    anchor: 'end',
+                    align: 'start',
+                    offset: 50,
+                    font: {
+                        weight: 'bold',
+                        size: 13
+                    },
+                    formatter: (value, context) => {
+                        let sum = context.dataset.data.reduce((a, b) => a + b, 0);
+                        let percentage = (value / sum * 100).toFixed(2) + '%';
+                        return percentage;
+                    }
                 }
             }
-        }
+        },
+        plugins: [ChartDataLabels]
     });
 
     // Function to handle data fetching and updating UI

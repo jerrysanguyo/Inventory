@@ -19,16 +19,12 @@
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
     <!-- chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
 
     <style>
         #offcanvasNavbar {
             width: 16%;
-        }
-
-        @media (max-width: 768px) {
-            #offcanvasNavbar {
-                width: 80%;
-            }
         }
 
         .navbar, #offcanvasNavbar {
@@ -38,6 +34,30 @@
         .btn.btn-primary {
             background-color: #727CF5;
             border-color: #727CF5;
+        }
+        
+        /* mobile */
+        @media (min-width: 375px) {
+            .card-chart {
+                height: 100%; 
+            }
+        }
+
+        /* tablet */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .card-chart {
+                height: 100%;
+            }
+            #offcanvasNavbar {
+                width: 80%;
+            }
+        }
+
+        /* web */
+        @media (min-width: 992px) {
+            .card-chart {
+                height: 645px; 
+            }
         }
     </style>
 
