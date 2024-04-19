@@ -20,6 +20,15 @@ class Inventory extends Model
     {
         return self::all();
     }
+
+    public static function getEquipmentTypesWithCounts()
+    {
+        return self::join('equipments', 'inventories.equipment_id', '=', 'equipments.id')
+                   ->selectRaw('tbl_equipments.name as equipment_name, count(*) as count')
+                   ->groupBy('equipments.name')
+                   ->get()
+                   ->pluck('count', 'equipment_name');
+    }
     
     public function creator()
     {

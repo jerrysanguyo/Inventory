@@ -5,6 +5,7 @@ use App\DataTables\IHPerItemDataTable;
 use App\Models\Inventory;
 use App\Models\Deployment;
 use App\Models\User;
+use App\Models\Equipment;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -19,22 +20,32 @@ class HomeController extends Controller
         $listOfDeployment = Deployment::getAllDeployment();
         $totalCountItem = Inventory::count();
         $totalUser = User::count();
+        $totalCountEquipment = Equipment::count();
         $totalCountBorrowed = Deployment::where('status', 'borrowed')->count();
         $totalCountReturn = Deployment::where('status', 'returned')->count();
+        $equipTypes = Inventory::getEquipmentTypesWithCounts();
 
         $chartData = [
             'borrowed' => $totalCountBorrowed,
             'returned' => $totalCountReturn,
             'totalDeployments' => count($listOfDeployment) 
         ];
+
+        $equipData = [
+            'equipType' => $totalCountEquipment,
+            'countEquipment' => $totalCountItem
+        ];
     
         return $DataTable->render('home', compact(
             'totalCountItem',
+            'totalCountEquipment',
             'listOfDeployment',
             'totalUser',
             'totalCountReturn',
             'totalCountBorrowed',
-            'chartData'
+            'chartData',
+            'equipData',
+            'equipTypes'
         ));
     }
 
