@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-md-3">
                         <label for="qty" class="form-label">Quantity</label>
-                        <input type="number" name="quantity" id="qty" class="form-control">
+                        <input type="number" name="quantity" id="qty" class="form-control" value="1">
                     </div>
                     <div class="col-md-3">
                         <label for="unit" class="form-label">Unit</label>
