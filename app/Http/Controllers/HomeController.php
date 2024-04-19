@@ -24,6 +24,8 @@ class HomeController extends Controller
         $totalCountBorrowed = Deployment::where('status', 'borrowed')->count();
         $totalCountReturn = Deployment::where('status', 'returned')->count();
         $equipTypes = Inventory::getEquipmentTypesWithCounts();
+        $totalBorrowedEquipment = Inventory::getEquipmentByStatus('borrowed');
+        $totalReturnedEquipment = Inventory::getEquipmentByStatus('returned');
 
         $chartData = [
             'borrowed' => $totalCountBorrowed,
@@ -45,7 +47,9 @@ class HomeController extends Controller
             'totalCountBorrowed',
             'chartData',
             'equipData',
-            'equipTypes'
+            'equipTypes',
+            'totalBorrowedEquipment',
+            'totalReturnedEquipment',
         ));
     }
 

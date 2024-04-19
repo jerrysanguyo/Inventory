@@ -21,6 +21,11 @@ class Deployment extends Model
         return self::all();
     }
 
+    public function inventory()
+    {
+        return $this->belongsTo(Inventory::class, 'inventory_id');
+    }
+
     public static function getItemHistoryDeployment($inventoryId)
     {
         return self::where('inventory_id', $inventoryId)->get();

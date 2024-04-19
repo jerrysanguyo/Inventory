@@ -19,7 +19,8 @@
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
     <!-- chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@latest"></script>
+
 
 
     <style>

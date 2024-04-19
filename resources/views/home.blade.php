@@ -29,18 +29,10 @@
 <!-- middle section -->
     <div class="row">
         <div class="col-md-6">
-            <div class="card border-0 shadow mt-3">
-                <div class="card-body">
-                    
-                </div>
-            </div>
+            @include('HomePartial/ItemBorrowedChart')
         </div>
         <div class="col-md-6">
-            <div class="card border-0 shadow mt-3">
-                <div class="card-body">
-                    
-                </div>
-            </div>
+            @include('HomePartial/ItemReturnChart')
         </div>
     </div>
 <!-- lower section -->
@@ -65,54 +57,38 @@ $(document).ready(function() {
     });
 });
 document.addEventListener('DOMContentLoaded', function () {
-    // Deployment Chart
-    var ctxDeployment = document.getElementById('deploymentChart').getContext('2d');
-    var deploymentChart = new Chart(ctxDeployment, {
-        type: 'bar',
-        data: {
-            labels: ['Borrowed', 'Returned'],
-            datasets: [{
-                label: 'Status Count',
-                data: [@json($chartData['borrowed']), @json($chartData['returned'])],
-                backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)'],
-                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
+    // option
+    const datalabelsPlugin = ChartDataLabels; 
+    var globalOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top',
+            },
+            title: {
+                display: true,
+            },
+            datalabels: {
+                color: '#ffffff',
+                anchor: 'end',
+                align: 'start',
+                offset: 10,
+                font: {
+                    weight: 'bold',
+                    size: 14
                 },
-                title: {
-                    display: true,
-                    text: 'Deployment Status'
-                },
-                datalabels: {
-                    color: '#ffffff',
-                    anchor: 'end',
-                    align: 'start',
-                    offset: 10,
-                    font: {
-                        weight: 'bold',
-                        size: 14
-                    },
-                    formatter: (value, context) => {
-                        let sum = context.dataset.data.reduce((a, b) => a + b, 0);
-                        let percentage = (value / sum * 100).toFixed(2) + '%';
-                        return context.chart.data.labels[context.dataIndex] + ': ' + percentage;
-                    }
+                formatter: (value, context) => {
+                    let sum = context.dataset.data.reduce((a, b) => a + b, 0);
+                    let percentage = (value / sum * 100).toFixed(2) + '%';
+                    return percentage;
                 }
             }
         },
-        plugins: [ChartDataLabels]
-    });
+    };
 
-    // Equipment Chart
-    var ctxEquipment = document.getElementById('equipmentChart').getContext('2d');
-
-    var colors = [
+    // chart color
+    var baseColors = [
         'rgba(255, 99, 132, 0.6)',
         'rgba(54, 162, 235, 0.6)',
         'rgba(255, 206, 86, 0.6)',
@@ -123,50 +99,82 @@ document.addEventListener('DOMContentLoaded', function () {
         'rgba(165, 42, 42, 0.6)',
     ];
 
-    while (colors.length < {!! json_encode($equipTypes->keys()) !!}.length) {
-        colors = colors.concat(colors);
+    var maxItems = Math.max({!! json_encode($equipTypes->keys()) !!}.length, {!! json_encode($totalBorrowedEquipment->keys()) !!}.length, 2);
+    var colors = [];
+    while (colors.length < maxItems) {
+        colors = colors.concat(baseColors);
     }
 
+    // Deployment Chart
+    var ctxDeployment = document.getElementById('deploymentChart').getContext('2d');
+    var deploymentChart = new Chart(ctxDeployment, {
+        type: 'bar',
+        plugins: [datalabelsPlugin], 
+        data: {
+            labels: ['Borrowed', 'Returned'],
+            datasets: [{
+                label: 'Status Count',
+                data: [@json($chartData['borrowed']), @json($chartData['returned'])],
+                backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)'],
+                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+                borderWidth: 1
+            }]
+        },
+        options: {...globalOptions, title: {text: 'Deployment Status'}}
+    });
+
+    // Equipment Chart
+    var ctxEquipment = document.getElementById('equipmentChart').getContext('2d');
     var equipmentChart = new Chart(ctxEquipment, {
         type: 'doughnut',
+        plugins: [datalabelsPlugin], 
         data: {
             labels: {!! json_encode($equipTypes->keys()) !!},
             datasets: [{
                 label: 'Equipment Count',
                 data: {!! json_encode($equipTypes->values()) !!},
-                backgroundColor: colors.slice(0, {!! json_encode($equipTypes->keys()) !!}.length), 
+                backgroundColor: colors.slice(0, {!! json_encode($equipTypes->keys()) !!}.length),
+                borderColor: colors.slice(0, {!! json_encode($equipTypes->keys()) !!}.length).map(color => color.replace('0.6', '1')),
+                borderWidth: 1
+            }]
+        },
+        options: {...globalOptions, title: {text: 'Equipment in Inventory'}}
+    });
+
+    // Borrow Chart
+    var ctxBorrow = document.getElementById('borrowedItemsChart').getContext('2d');
+    var borrowedItemsChart = new Chart(ctxBorrow, {
+        type: 'bar',
+        plugins: [datalabelsPlugin], 
+        data: {
+            labels: {!! json_encode($totalBorrowedEquipment->keys()) !!},
+            datasets: [{
+                label: 'Borrowed Equipment Count',
+                data: {!! json_encode($totalBorrowedEquipment->values()) !!},
+                backgroundColor: colors,
                 borderColor: colors.map(color => color.replace('0.6', '1')),
                 borderWidth: 1
             }]
         },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Equipment in inventory'
-                },
-                datalabels: {
-                    color: '#ffffff',
-                    anchor: 'end',
-                    align: 'start',
-                    offset: 50,
-                    font: {
-                        weight: 'bold',
-                        size: 13
-                    },
-                    formatter: (value, context) => {
-                        let sum = context.dataset.data.reduce((a, b) => a + b, 0);
-                        let percentage = (value / sum * 100).toFixed(2) + '%';
-                        return percentage;
-                    }
-                }
-            }
+        options: {...globalOptions, title: {text: 'Borrowed Equipment per Type'}}
+    });
+
+    //Returned Chart
+    var ctxReturned = document.getElementById('returnedItemsChart').getContext('2d');
+    var returnedItemsChart = new Chart(ctxReturned, {
+        type: 'bar',
+        plugins: [datalabelsPlugin], 
+        data: {
+            labels: {!! json_encode($totalReturnedEquipment->keys()) !!},
+            datasets: [{
+                label: 'Returned Equipment Count',
+                data: {!! json_encode($totalReturnedEquipment->values()) !!},
+                backgroundColor: colors,
+                borderColor: colors.map(color => color.replace('0.6', '1')),
+                borderWidth: 1
+            }]
         },
-        plugins: [ChartDataLabels]
+        options: {...globalOptions, title: {text: 'Returned Equipment per Type'}}
     });
 
     // Count top

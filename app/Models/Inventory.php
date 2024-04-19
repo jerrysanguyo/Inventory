@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB; 
 
 class Inventory extends Model
 {
@@ -29,6 +30,17 @@ class Inventory extends Model
                    ->get()
                    ->pluck('count', 'equipment_name');
     }
+
+    public static function getEquipmentByStatus($status)
+    {
+        return self::join('deployments', 'inventories.id', '=', 'deployments.inventory_id')
+                    ->join('equipments', 'inventories.equipment_id', '=', 'equipments.id')
+                    ->select('equipments.name as equipment_name', DB::raw('count(*) as count'))
+                    ->where('deployments.status', $status)
+                    ->groupBy('equipments.name')
+                    ->get()
+                    ->pluck('count', 'equipment_name');
+    }
     
     public function creator()
     {
@@ -45,10 +57,10 @@ class Inventory extends Model
         return $this->belongsTo(Equipment::class, 'equipment_id');
     }
 
-    // public function deployments()
-    // {
-    //     return $this->hasMany(Deployment::class);
-    // }
+    public function deployments()
+    {
+        return $this->hasMany(Deployment::class, 'inventory_id');
+    }
 
     public function latestDeployment()
     {
