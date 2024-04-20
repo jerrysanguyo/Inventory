@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
         'rgba(255, 159, 64, 0.6)',
         'rgba(75, 0, 130, 0.6)',
         'rgba(165, 42, 42, 0.6)',
+        'rgba(0, 0, 0, 0.6)',
     ];
 
     var maxItems = Math.max({!! json_encode($equipTypes->keys()) !!}.length, {!! json_encode($totalBorrowedEquipment->keys()) !!}.length, 2);
@@ -116,8 +117,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 label: 'Status Count',
                 data: [@json($chartData['borrowed']), @json($chartData['returned'])],
                 backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)'],
-                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
-                borderWidth: 1
             }]
         },
         options: {...globalOptions, title: {text: 'Deployment Status'}}
@@ -134,8 +133,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 label: 'Equipment Count',
                 data: {!! json_encode($equipTypes->values()) !!},
                 backgroundColor: colors.slice(0, {!! json_encode($equipTypes->keys()) !!}.length),
-                borderColor: colors.slice(0, {!! json_encode($equipTypes->keys()) !!}.length).map(color => color.replace('0.6', '1')),
-                borderWidth: 1
             }]
         },
         options: {...globalOptions, title: {text: 'Equipment in Inventory'}}
@@ -152,8 +149,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 label: 'Borrowed Equipment Count',
                 data: {!! json_encode($totalBorrowedEquipment->values()) !!},
                 backgroundColor: colors,
-                borderColor: colors.map(color => color.replace('0.6', '1')),
-                borderWidth: 1
             }]
         },
         options: {...globalOptions, title: {text: 'Borrowed Equipment per Type'}}
