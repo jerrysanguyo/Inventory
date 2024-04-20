@@ -4,10 +4,7 @@
 <div class="container-fluid">
 <!-- upper section -->
     <div class="row">
-        <div class="col-md-4">
-            @include('HomePartial/EquipmentChart')
-        </div>
-        <div class="col-md-8">
+        <div class="col-lg-8 col-md-12">
             <div class="row">
                 <div class="col-md-6">
                     @include('HomePartial/EquipmentCount')
@@ -25,22 +22,25 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-4 col-md-12">
+            @include('HomePartial/EquipmentChart')
+        </div>
     </div>
 <!-- middle section -->
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-6 col-md-12">
             @include('HomePartial/ItemBorrowedChart')
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-6 col-md-12">
             @include('HomePartial/ItemReturnChart')
         </div>
     </div>
 <!-- lower section -->
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-6 col-md-12">
             @include('HomePartial/ItemHistoryTable')
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-6 col-md-12">
             @include('HomePartial/ItemHistoryChart')
         </div>
     </div>

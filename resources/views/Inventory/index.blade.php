@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between mb-1">
         <span class="fs-3">Inventory</span>
     @if (Auth::user()->role === 'admin')
         <div class="ms-auto"> 
@@ -15,17 +15,17 @@
         <div class="card-body overflow-x-auto">
             <form action="{{ route('inventory.export') }}" method="GET">
                 @csrf
-                <div class="row align-items-end mt-4">
-                    <div class="col-md-1">
+                <div class="row align-items-end my-4">
+                    <div class="col-lg-1 col-md-5">
                         <label for="startDate" class="form-label">Start date:</label>
                         <input type="date" id="startDate" name="startDate" class="form-control"> 
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-lg-1 col-md-5">
                         <label for="endDate" class="form-label">End date:</label>
                         <input type="date" id="endDate" name="endDate" class="form-control">
                     </div>
-                    <div class="col-md-4 d-flex justify-content-md-start">
-                        <button class="btn btn-primary mt-4 mt-md-0">Generate</button>
+                    <div class="col-lg-4 col-md-2 d-flex justify-content-lg-start">
+                        <button class="btn btn-primary mt-4 mt-lg-0">Generate</button>
                     </div>
                 </div>
             </form>

@@ -15,9 +15,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@latest"></script>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
-        #offcanvasNavbar {
-            width: 16%;
-        }
 
         .navbar, #offcanvasNavbar {
             background-color: #ffffff; 
@@ -33,6 +30,13 @@
             .card-chart {
                 height: 100%; 
             }
+            .mx-5{
+                margin-left: 0rem !important;
+                margin-right: 0rem !important;
+            }
+            #offcanvasNavbar {
+                width: 100%;
+            }
         }
 
         /* tablet */
@@ -41,7 +45,7 @@
                 height: 100%;
             }
             #offcanvasNavbar {
-                width: 80%;
+                width: 40%;
             }
         }
 
@@ -49,6 +53,13 @@
         @media (min-width: 992px) {
             .card-chart {
                 height: 645px; 
+            }
+            .mx-5{
+                margin-left:3rem !important;
+                margin-right: 3rem !important;
+            }
+            #offcanvasNavbar {
+                width: 16%;
             }
         }
     </style>

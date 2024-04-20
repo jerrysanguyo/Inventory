@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between mb-1">
         <span class="fs-3">Account</span>
         <a href="{{ route('admin.account.create') }}" class="text-decoration-none">
             <button class="btn btn-primary">

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between mb-1">
         <span class="fs-3">Unit</span>
         <a href="{{ route('admin.unit.create') }}" class="text-decoration-none">
             <button class="btn btn-primary">
@@ -35,21 +35,24 @@
                         <td>{{ $unit->creator->name }}</td>
                         <td>{{ $unit->created_at }}</td>
                         <td>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <a class="dropdown-item" href="{{ route('admin.unit.edit', ['unit' => $unit->id]) }}">
-                                        <button class="btn btn-primary">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('admin.unit.edit', ['unit' => $unit->id]) }}">
                                             Update
-                                        </button>
-                                    </a>
-                                </div>
-                                <div class="col-md-2">
-                                    <form action="{{ route('admin.unit.destroy', $unit->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" onclick="return confirm('Are you sure you want to delete this unit?');" value="Delete" class="btn btn-danger">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <form action="{{ route('admin.unit.destroy', $unit->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                        <input type="submit" onclick="return confirm('Are you sure you want to delete this unit?');" value="Delete" class="dropdown-item">
                                     </form>
-                                </div>
+                                    </li>
+                                </ul>
                             </div>
                         </td>
                     </tr>
