@@ -36,7 +36,7 @@
         </div>
     </div>
 <!-- lower section -->
-    <div class="row mt-3">
+    <div class="row">
         <div class="col-md-6">
             @include('HomePartial/ItemHistoryTable')
         </div>

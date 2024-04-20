@@ -3,27 +3,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name') }}</title>
     <link rel="icon" href="{{ asset('image/IT-White.webp') }}" type="image/x-icon">
-
-    <!-- Fonts -->
     <!-- <link rel="dns-prefetch" href="//fonts.bunny.net"> -->
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css" rel="stylesheet">
-
-    <!-- Include jQuery before DataTables -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
-    <!-- chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@latest"></script>
-
-
-
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
         #offcanvasNavbar {
             width: 16%;
@@ -62,13 +52,10 @@
             }
         }
     </style>
-
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body style="background-color:#eeeeee">
     <div id="app">
-        <nav class="navbar fixed top shadow-sm text-bg-white">
+        <nav class="navbar fixed-top shadow-sm text-bg-white">
             <div class="container-fluid">
                 @guest
                     @if (Route::has('login'))
@@ -191,9 +178,14 @@
                 @endguest
             </div>
         </nav>
-        <main class="py-4">
+        <main class="py-4 mx-5 mt-5">
             @yield('content')
         </main>
+        <footer class="footer bg-white">
+            <div class="col-md-12 p-3">
+                <span>&copy; {{ date('Y') }} City of Taguig. All Rights Reserved.</span>
+            </div>
+        </footer>
     </div>
     @stack('scripts')
 </body>
