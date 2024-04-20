@@ -7,7 +7,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name') }}</title>
+    <link rel="icon" href="{{ asset('image/IT-White.webp') }}" type="image/x-icon">
 
     <!-- Fonts -->
     <!-- <link rel="dns-prefetch" href="//fonts.bunny.net"> -->
