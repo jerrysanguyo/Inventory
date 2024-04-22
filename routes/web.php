@@ -66,10 +66,6 @@ Route::middleware(['auth', Role::class])->group(function() {
         // Deployment
         Route::PUT('/deployment/return/{deployment}', [DeploymentController::class, 'deploymentReturn'])
             ->name('deployment.depReturn');
-
-        // export
-        // Route::get('/inventory/export', [App\Http\Controllers\InventoryController::class, 'exportExcel'])
-        //     ->name('inventory.export');
     });
 });
 
