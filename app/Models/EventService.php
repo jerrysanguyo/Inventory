@@ -12,7 +12,15 @@ class EventService extends Model
     protected $table='event_services';
     protected $fillable= [
         'driver_name',
+        'event_id',
         'mobile_number',
-        'plate_number'
+        'plate_number',
+        'created_by',
+        'updated_by',
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_id');
+    }
 }

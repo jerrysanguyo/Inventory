@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\EventParticipants;
+use App\Models\EventService;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\DataTables\EventDataTable;
@@ -36,7 +38,13 @@ class EventController extends Controller
     
     public function show(Event $event)
     {
-        //
+        $serviceExists = EventService::where('event_id', $event->id)->exists();
+        $event->load('eventServices', 'eventParticipants');
+
+        return view('Event.details', compact(
+            'event',
+            'serviceExists'
+        ));
     }
     
     public function edit(Event $event)

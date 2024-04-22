@@ -46,13 +46,8 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="{{ route('admin.event.edit', ['event' => $event->id]) }}">
-                                            Assign participants
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('admin.event.edit', ['event' => $event->id]) }}">
-                                            Assign Service
+                                        <a class="dropdown-item" href="{{ route('admin.event.show', ['event' => $event->id]) }}">
+                                            View details
                                         </a>
                                     </li>
                                     <li>

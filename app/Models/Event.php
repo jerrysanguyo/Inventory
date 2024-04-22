@@ -27,4 +27,14 @@ class Event extends Model
     {
         return self::all();
     }
+
+    public function eventServices()
+    {
+        return $this->hasMany(EventService::class, 'event_id');
+    }
+
+    public function eventParticipants()
+    {
+        return $this->hasMany(EventParticipants::class, 'event_id');
+    }
 }

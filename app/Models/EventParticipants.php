@@ -11,5 +11,13 @@ class EventParticipants extends Model
     protected $table="event_participants";
     protected $fillable=[
         'name',
+        'event_id',
+        'created_by',
+        'updated_by',
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_id');
+    }
 }
