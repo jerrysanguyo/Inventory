@@ -23,12 +23,14 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+     protected function redirectTo()
+     {
+         if (auth()->user()->role == 'admin') {
+             return '/admin/dashboard';
+         } else if (auth()->user()->role == 'user') {
+             return '/user/dashboard';
+         }
+     }
 
     /**
      * Create a new controller instance.
