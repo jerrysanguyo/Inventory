@@ -9,6 +9,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\DeploymentController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\EventController;
 use App\Http\Middleware\Role;
 use App\Http\Middleware\UserRole;
 
@@ -51,6 +52,7 @@ Route::middleware(['auth', Role::class])->group(function() {
         Route::resource('/inventory', InventoryController::class);
         Route::resource('/deployment', DeploymentController::class);
         Route::resource('/account', AccountController::class);
+        Route::resource('/event', EventController::class);
 
         Route::PUT('/account/{account}/roleUser', [AccountController::class, 'makeUser'])
             ->name('account.makeUser');

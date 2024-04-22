@@ -15,7 +15,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@latest"></script>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
-
         .navbar, #offcanvasNavbar {
             background-color: #ffffff; 
         }
@@ -150,6 +149,11 @@
                                         <i class="fa-solid fa-user mx-3"></i> Accounts
                                     </a>
                                 </li>
+                                <li class="nav-item fs-5">
+                                    <a href="{{route('admin.event.index')}}" class="nav-link">
+                                    <i class="fa-solid fa-calendar-days mx-3"></i></i> Events
+                                    </a>
+                                </li>
                                 <hr>
                                 <li class="side-nav-title mb-3">CMS</li>
                                 <li class="nav-item fs-5 {{ Request::is('admin.department.index') ? 'active' : '' }}">
@@ -192,11 +196,13 @@
         <main class="py-4 mx-5 mt-5">
             @yield('content')
         </main>
-        <footer class="footer bg-white">
+        <div class="sticky-bottom mt-5">
+        <footer class="footer bg-white fixed-bottom z-n1">
             <div class="col-md-12 p-3">
                 <span>&copy; {{ date('Y') }} City of Taguig. All Rights Reserved.</span>
             </div>
         </footer>
+        </div>
     </div>
     @stack('scripts')
 </body>
