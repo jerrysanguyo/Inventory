@@ -20,7 +20,7 @@
                                 <span class="fs-1 ">Sign in</span>
                                 <span class="fs-6 text-body-secondary">Enter your email address and password to access admin panel.</span>
                                 <span class="fs-6 mb-4">
-                                    <a href="{{ route('register') }}" class="text-decoration-none">Don't have an account</a>
+                                    <a href="#" class="text-decoration-none">Kindly ask the admin for account creation</a>
                                 </span>
                             </div>
                             <form method="POST" action="{{ route('login') }}">

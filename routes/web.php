@@ -9,6 +9,9 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\DeploymentController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventParticipantController;
+use App\Http\Controllers\EventServiceController;
 use App\Http\Middleware\Role;
 use App\Http\Middleware\UserRole;
 
@@ -16,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 Route::get('/unauthorized-access', [UnauthorizedController::class, 'index'])
     ->name('unauthorized');
     
@@ -51,6 +54,9 @@ Route::middleware(['auth', Role::class])->group(function() {
         Route::resource('/inventory', InventoryController::class);
         Route::resource('/deployment', DeploymentController::class);
         Route::resource('/account', AccountController::class);
+        Route::resource('/event', EventController::class);
+        Route::resource('/participant', EventParticipantController::class);
+        Route::resource('/service', EventServiceController::class);
 
         Route::PUT('/account/{account}/roleUser', [AccountController::class, 'makeUser'])
             ->name('account.makeUser');
@@ -60,10 +66,6 @@ Route::middleware(['auth', Role::class])->group(function() {
         // Deployment
         Route::PUT('/deployment/return/{deployment}', [DeploymentController::class, 'deploymentReturn'])
             ->name('deployment.depReturn');
-
-        // export
-        // Route::get('/inventory/export', [App\Http\Controllers\InventoryController::class, 'exportExcel'])
-        //     ->name('inventory.export');
     });
 });
 
