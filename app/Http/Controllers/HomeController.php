@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\DataTables\IHPerItemDataTable;
+use App\DataTables\EventDataTable;
 use App\Models\Inventory;
 use App\Models\Deployment;
 use App\Models\User;
 use App\Models\Equipment;
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,9 +17,10 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
     
-    public function index(IHPerItemDataTable $DataTable)
+    public function index(IHPerItemDataTable $DataTable, EventDataTable $eventDataTable)
     {
         $listOfDeployment = Deployment::getAllDeployment();
+        $listOfEvent = Event::getAllEvent();
         $totalCountItem = Inventory::count();
         $totalUser = User::count();
         $totalCountEquipment = Equipment::count();
@@ -39,6 +42,8 @@ class HomeController extends Controller
         ];
     
         return $DataTable->render('home', compact(
+            'eventDataTable',
+            'listOfEvent',
             'totalCountItem',
             'totalCountEquipment',
             'listOfDeployment',

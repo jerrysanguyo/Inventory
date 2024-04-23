@@ -56,6 +56,15 @@ $(document).ready(function() {
         "order": [[0, "desc"]],
     });
 });
+$(document).ready(function() {
+    $('#event-table').DataTable({
+        "responsive": true,
+        "processing": true,
+        "serverSide": false,
+        "pageLength": 1,
+        "order": [[0, "desc"]],
+    });
+});
 document.addEventListener('DOMContentLoaded', function () {
     // option
     const datalabelsPlugin = ChartDataLabels; 
@@ -196,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchData('generateButtonEquipment', '{{ route("admin.equipment.count") }}', 'startDateEquip', 'endDateEquip', '#equipmentCount');
     fetchData('generateButtonBorrowed', '{{ route("admin.counts.borrowed") }}', 'startDateBor', 'endDateBor', '#borrowCount');
     fetchData('generateButtonReturn', '{{ route("admin.counts.returned") }}', 'startDatePull', 'endDatePull', '#returnCount');
-    fetchData('generateButtonUser', '{{ route("admin.counts.users") }}', 'startDateUser', 'endDateUser', '#userCount');
+    // fetchData('generateButtonUser', '{{ route("admin.counts.users") }}', 'startDateUser', 'endDateUser', '#userCount');
 });
 </script>
 @endpush
