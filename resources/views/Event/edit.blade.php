@@ -32,15 +32,15 @@
                         <label for="mobile_number" class="form-label">Point person mobile number:</label>
                         <input type="text" name="mobile_number" id="mobile_number" class="form-control" value="{{ $event->mobile_number }}">
                     </div>
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-lg-3 col-md-3">
                         <label for="event_date" class="form-label">Date:</label>
                         <input type="date" name="event_date" id="event_date" class="form-control" value="{{ $event->event_date }}">
                     </div>
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-lg-3 col-md-3">
                         <label for="venue_time_start" class="form-label">Time start:</label>
                         <input type="time" name="venue_time_start" id="venue_time_start" class="form-control" value="{{ $event->venue_time_start }}">
                     </div>
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-lg-3 col-md-3">
                         <label for="venue_time_end" class="form-label">Time end:</label>
                         <input type="time" name="venue_time_end" id="venue_time_end" class="form-control" value="{{ $event->venue_time_end }}">
                     </div>
@@ -58,4 +58,10 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById('event_date').setAttribute('min', today);
+    });
+</script>
 @endsection

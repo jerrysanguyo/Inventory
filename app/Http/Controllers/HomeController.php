@@ -20,7 +20,8 @@ class HomeController extends Controller
     public function index(IHPerItemDataTable $DataTable, EventDataTable $eventDataTable)
     {
         $listOfDeployment = Deployment::getAllDeployment();
-        $listOfEvent = Event::getAllEvent();
+        $listOfEvent = Event::getAllEvent()
+                     ->whereIn('status', ['Upcoming', 'On-going']);
         $totalCountItem = Inventory::count();
         $totalUser = User::count();
         $totalCountEquipment = Equipment::count();

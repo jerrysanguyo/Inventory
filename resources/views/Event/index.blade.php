@@ -24,6 +24,7 @@
                         <th>Venue</th>
                         <th>Date and time</th>
                         <th>Remarks</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -34,6 +35,7 @@
                         <td>{{ $event->venue }}</td>
                         <td>{{ $event->event_date }} | {{ $event->venue_time_start }} - {{ $event->venue_time_end }}</td>
                         <td>{{ $event->remarks }}</td>
+                        <td>{{ $event->status }}</td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">

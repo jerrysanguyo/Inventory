@@ -4,9 +4,9 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between mb-1">
         <span class="fs-3">Event / Event Details</span>
-        <a href="{{ route('admin.event.create') }}" class="text-decoration-none">
+        <a href="{{ route('admin.event.edit', ['event'=>$event->id]) }}" class="text-decoration-none">
             <button class="btn btn-primary">
-                    Add Event
+                    Edit Event
             </button>
         </a>
     </div>
@@ -68,6 +68,12 @@
                         <label for="remarks" class="col-sm-4 col-form-label">Remarks:</label>
                         <div class="col-sm-8">
                             <input type="text" readonly class="form-control-plaintext" id="remarks" value="{{ $event->remarks ?? 'N/A'  }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="status" class="col-sm-4 col-form-label">Status:</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" id="status" value="{{ $event->status ?? 'N/A'  }}">
                         </div>
                     </div>
                     <hr>

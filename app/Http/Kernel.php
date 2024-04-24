@@ -64,4 +64,23 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->call(function () {
+            $today = now()->startOfDay();
+
+            App\Models\Event::whereDate('event_date', '=', $today)
+                ->where('status', '!=', 'Done')
+                ->update(['status' => 'On-going']);
+
+            App\Models\Event::where('event_date', '<', $today)
+                ->where('status', '!=', 'Done')
+                ->update(['status' => 'Done']);
+
+            App\Models\Event::where('event_date', '>', $today)
+                ->where('status', '!=', 'Done')
+                ->update(['status' => 'Upcoming']);
+        })->everyMinute();
+    }
 }
