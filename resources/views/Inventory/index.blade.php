@@ -9,13 +9,39 @@
             <a href="{{ route('admin.inventory.create') }}" class="text-decoration-none me-2 btn btn-primary">
                 Add Item
             </a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dataImport">
+                Import Data
+            </button>
+
+            <div class="modal fade" id="dataImport" tabindex="-1" aria-labelledby="dataImportLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="dataImportLabel">Import Data</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="{{ route('import.excel') }}" method="POST" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                @csrf
+                                @method('POST')
+                                <input type="file" class="form-control" name="file" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Import Data</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
     <div class="card justify-content-center">
         <div class="card-body overflow-x-auto">
+            <span class="fs-4">Generate report:</span>
             <form action="{{ route('inventory.export') }}" method="GET">
                 @csrf
-                <div class="row align-items-end my-4">
+                <div class="row align-items-end mb-4">
                     <div class="col-lg-1 col-md-5">
                         <label for="startDate" class="form-label">Start date:</label>
                         <input type="date" id="startDate" name="startDate" class="form-control"> 
@@ -43,6 +69,12 @@
             @if(session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('warning'))
+                <div class="alert alert-success">
+                    {{ session('warning') }}
                 </div>
             @endif
             <table class="table" id="inventory-table">

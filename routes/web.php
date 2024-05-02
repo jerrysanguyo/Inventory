@@ -12,6 +12,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventParticipantController;
 use App\Http\Controllers\EventServiceController;
+use App\Http\Controllers\ImportController;
 use App\Http\Middleware\Role;
 use App\Http\Middleware\UserRole;
 
@@ -25,6 +26,9 @@ Route::get('/unauthorized-access', [UnauthorizedController::class, 'index'])
     
 Route::get('/inventory/export', [App\Http\Controllers\InventoryController::class, 'exportExcel'])
     ->name('inventory.export');
+
+Route::post('/import-excel', [ImportController::class, 'importExcel'])->name('import.excel');
+
 
 Route::middleware(['auth', Role::class])->group(function() {
     Route::prefix('admin')->name('admin.')->group(function () {
