@@ -53,6 +53,35 @@ class ImportController extends Controller
         
                 if ($existingInventory) {
                     $duplicates[] = $existingInventory;
+                    if ($row[6] != 'N/A' && $row[13] != 'N/A') {
+                        $deployment = Deployment::create([
+                            'inventory_id' => $existingInventory->id,
+                            'department_id' => $department ? $department->id : null,
+                            'assigned_to' => $row[7],
+                            'issued_by' => $issuedBy ? $issuedBy->id : null,
+                            'deploy_by' => $deployedBy ? $deployedBy->id : null,
+                            'deploy_date' => $row[11],
+                            'status' => $row[12],
+                            'return_by' => $row[13],
+                            'return_date' => $row[14],
+                            'received_by_return' => $returnedByReceived ? $returnedByReceived->id : null,
+                            'created_by' => auth()->id(),
+                            'updated_by' => auth()->id(),
+                        ]);
+                    } elseif ($row[6] != 'N/A') {
+                        $deployment = Deployment::create([
+                            'inventory_id' => $existingInventory->id,
+                            'department_id' => $department ? $department->id : null,
+                            'assigned_to' => $row[7],
+                            'issued_by' => $issuedBy ? $issuedBy->id : null,
+                            'received_by' => $row[9],
+                            'deploy_by' => $deployedBy ? $deployedBy->id : null,
+                            'deploy_date' => $row[11],
+                            'status' => $row[12],
+                            'created_by' => auth()->id(),
+                            'updated_by' => auth()->id(),
+                        ]);
+                    }
                 } else {
                     $inventory = Inventory::create([
                         'quantity' => $row[0],
