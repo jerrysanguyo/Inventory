@@ -136,7 +136,7 @@ class InventoryController extends Controller
         // header
         $headers = [
             'QTY', 'UNIT', 'EQUIPMENT NAME', 'EQUIPMENT TYPE', 'SERIAL NUMBER',
-            'REMARK', 'DEPARTMENT', 'ISSUED TO', 'ISSUED BY', 'RECEIVED BY',
+            'REMARK', 'DEPARTMENT', 'ISSUED TO', 'ISSUED BY', 'RECEIVED BY','DEPLOYED BY',
             'DATE DEPLOY', 'STATUS', 'RETURNED BY', 'RETURN DATE', 'RETURNED BY (RECEIVED)'
         ];
         $sheet->fromArray($headers, null, 'A1');
@@ -177,6 +177,7 @@ class InventoryController extends Controller
                 $inventory->latestDeployment->assigned_to ?? 'N/A',
                 $inventory->latestDeployment->issuedName->name ?? 'N/A',
                 $inventory->latestDeployment->receivedName->name ?? 'N/A',
+                $inventory->latestDeployment->deploy_by->name ?? 'N/A',
                 $inventory->latestDeployment->deploy_date ?? 'N/A',
                 $inventory->latestDeployment->status ?? 'In Stock',
                 $inventory->latestDeployment->return_by ?? 'N/A',

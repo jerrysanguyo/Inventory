@@ -66,4 +66,19 @@ class Inventory extends Model
     {
         return $this->hasOne(Deployment::class)->latest();
     }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
+
+    public function issuedBy()
+    {
+        return $this->belongsTo(User::class, 'issued_by');
+    }
+
+    public function returnedByReceived()
+    {
+        return $this->belongsTo(User::class, 'received_by_return');
+    }
 }
