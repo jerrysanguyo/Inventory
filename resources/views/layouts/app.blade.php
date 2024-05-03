@@ -23,6 +23,14 @@
             background-color: #727CF5;
             border-color: #727CF5;
         }
+
+        body {
+            background: url('{{ asset("image/bg.webp") }}') no-repeat center center fixed; 
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
         
         /* mobile */
         @media (min-width: 375px) {
