@@ -145,7 +145,7 @@ class InventoryController extends Controller
         $headerStyleArray = [
             'font' => [
                 'bold' => true,
-                'size' => 13,
+                'size' => 14,
                 'color' => ['argb' => 'FF000000'],  // header color 
             ],
             'fill' => [
@@ -161,7 +161,7 @@ class InventoryController extends Controller
                 ],
             ]
         ];
-        $sheet->getStyle('A1:O1')->applyFromArray($headerStyleArray);
+        $sheet->getStyle('A1:P1')->applyFromArray($headerStyleArray); //fill color and bold
 
         // data
         $row = 2;
@@ -196,10 +196,10 @@ class InventoryController extends Controller
                 ],
             ]
         ];
-        $sheet->getStyle('A1:O' . ($row - 1))->applyFromArray($styleArray);
+        $sheet->getStyle('A1:P' . ($row - 1))->applyFromArray($styleArray);
 
         // Auto-size columns
-        foreach (range('A', 'O') as $columnID) {
+        foreach (range('A', 'P') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
 
